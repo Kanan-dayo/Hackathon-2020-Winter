@@ -171,6 +171,7 @@
     <ClCompile Include="SourceCode\Mylibrary.cpp" />
     <ClCompile Include="SourceCode\number.cpp" />
     <ClCompile Include="SourceCode\NumericString.cpp" />
+    <ClCompile Include="SourceCode\player.cpp" />
     <ClCompile Include="SourceCode\ranking.cpp" />
     <ClCompile Include="SourceCode\renderer.cpp" />
     <ClCompile Include="SourceCode\result.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="SourceCode\Mylibrary.h" />
     <ClInclude Include="SourceCode\number.h" />
     <ClInclude Include="SourceCode\NumericString.h" />
+    <ClInclude Include="SourceCode\player.h" />
     <ClInclude Include="SourceCode\ranking.h" />
     <ClInclude Include="SourceCode\renderer.h" />
     <ClInclude Include="SourceCode\result.h" />

@@ -35,7 +35,7 @@ void CTitle::Init(void)
 	seting.nValue = 1000;
 	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
 	seting.size = D3DXVECTOR2(200.0f, 200.0f);
-	pC2dui = C2DUi::Create(seting,CScene::PRIORITY_2DUI);
+	pC2dui = C2DUi::Create(seting,CScene::PRIORITY_BUI);
 	pC2dui->SetFadeAbility(N2Dui_fade(true, true, 60, -1));
 	pC2dui->SetFlashingAbility(N2Dui_flashing(true, 3));
 }

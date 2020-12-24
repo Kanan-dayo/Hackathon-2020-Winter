@@ -39,7 +39,7 @@ public:
 		CScene2D*       pImage;			// 画像のポインタ
 	}IMAGE;
 
-	C2DUi() : CScene(PRIORITY_2DUI) {}																							// コンストラクタ
+	C2DUi() : CScene(PRIORITY_BUI) {}																							// コンストラクタ
 	~C2DUi() {}																													// デストラクタ
 
 	static C2DUi * Create(N2Dui_seting &seting, PRIORITY pri);																					// 生成
