@@ -1,0 +1,17 @@
+//-------------------------------------------------------------------------------------------------------------
+// ÉTÉEÉìÉhèÓïÒ
+//-------------------------------------------------------------------------------------------------------------
+[SOUND][INFO]
+INFO = DATA/BGM/bgm_maoudamashii_neorock62.wav ,-1
+INFO = DATA/BGM/bgm_maoudamashii_fantasy01.wav ,-1
+INFO = DATA/BGM/game_maoudamashii_6_dangeon22.wav ,-1
+INFO = DATA/BGM/bgm_maoudamashii_fantasy11.wav ,-1
+INFO = DATA/BGM/bgm_maoudamashii_fantasy07.wav ,-1
+INFO = DATA/SE/se_maoudamashii_system10.wav ,0
+INFO = DATA/SE/se_maoudamashii_system45.wav ,0
+INFO = DATA/SE/se_maoudamashii_se_syber09.wav ,0
+INFO = DATA/SE/se_maoudamashii_battle16.wav ,0
+INFO = DATA/SE/se_maoudamashii_explosion06.wav ,0
+INFO = DATA/SE/se_maoudamashii_element_fire09.wav ,0
+INFO = DATA/SE/se_charge.wav ,0
+
