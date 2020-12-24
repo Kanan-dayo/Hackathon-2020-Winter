@@ -200,3 +200,65 @@ void CRenderer::Draw(void)
 	// バッフバッファとフロントバッファの入れ替え
 	m_pD3DDevice->Present(NULL, NULL, NULL, NULL);
 }
+
+// ------------------------------------------
+// 合成処理
+//	blend	: 合成演算
+// ------------------------------------------
+void CRenderer::SetBlend(
+	BLEND const &blend	// 合成演算
+)
+{
+	// 合成演算
+	switch (blend)
+	{
+		// 通常合成
+	case BLEND_NORMAL:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+		break;
+		// 半透明合成
+	case BLEND_TRANSLUCENT:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		break;
+		// 加算合成
+	case BLEND_ADD:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+		break;
+		// 加算半透明合成
+	case BLEND_ADD_TRANSLUCENT:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+		break;
+		// 減算合成
+	case BLEND_SUBTRACTION:
+		m_pD3DDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_REVSUBTRACT);
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+		break;
+		// 乗算合成1
+	case BLEND_MULTIPUL1:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ZERO);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_SRCCOLOR);
+		break;
+		// 乗算合成2
+	case BLEND_MULTIPUL2:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_DESTCOLOR);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_SRCCOLOR);
+		break;
+		// スクリーン合成
+	case BLEND_SCREEN:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVDESTCOLOR);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+		break;
+		// リバース合成
+	case BLEND_REVERSE:
+		m_pD3DDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVDESTCOLOR);
+		m_pD3DDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCCOLOR);
+		break;
+	default:
+		break;
+	}
+}
