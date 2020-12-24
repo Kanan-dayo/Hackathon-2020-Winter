@@ -10,6 +10,8 @@
 #include "tutorial.h"
 #include "texture.h"
 #include "2DUI.h"
+#include "fade.h"
+#include "keyboard.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // 生成
@@ -35,9 +37,16 @@ void CTutorial::Init(void)
 	seting.nValue = 1000;
 	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
 	seting.size = D3DXVECTOR2(200.0f, 200.0f);
-	pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
-	pC2dui->SetFadeAbility(N2Dui_fade(true, true, 60, -1));
-	pC2dui->SetFlashingAbility(N2Dui_flashing(true, 3));
+	// タイトル名
+	m_pC2dui[TYPE::TYPE_NAME] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+
+	seting.pos = D3DXVECTOR3(640.0f, 500.0f, 0.0f);
+	seting.size = D3DXVECTOR2(400.0f, 200.0f);
+	seting.nTextureID = CTexture::NAME_PleasePressButton000;
+
+	// キー入力ボタン
+	m_pC2dui[TYPE::TYPE_KEYINFO] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_pC2dui[TYPE::TYPE_KEYINFO]->SetFadeAbility(N2Dui_fade(true, true, 60, -1));
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -52,6 +61,17 @@ void CTutorial::Uninit(void)
 //-------------------------------------------------------------------------------------------------------------
 void CTutorial::Update(void)
 {
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	{
+		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
+		{
+			// チュートリアルをフェードする
+			m_pC2dui[TYPE::TYPE_NAME]->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
+			// キーボタンをフェードする
+			m_pC2dui[TYPE::TYPE_KEYINFO]->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
+			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_GAME);
+		}
+	}
 }
 
 //-------------------------------------------------------------------------------------------------------------
