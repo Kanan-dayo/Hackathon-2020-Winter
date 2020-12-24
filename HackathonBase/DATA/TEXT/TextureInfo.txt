@@ -1,0 +1,11 @@
+#---------------------------------------------
+# テクスチャファイル情報
+#---------------------------------------------
+[TEXTURE][NUMBER]
+NUMBER = 3
+
+[TEXTURE][FILENAME]
+FILENAME = DATA\TEXTURE\UI\Frame000.png
+FILENAME = DATA\TEXTURE\UI\number000.png
+FILENAME = DATA\TEXTURE\UI\PleasePressButton000.png
+
