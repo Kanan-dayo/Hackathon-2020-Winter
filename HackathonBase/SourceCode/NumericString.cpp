@@ -71,8 +71,8 @@ void CNumericString::Init(D3DXVECTOR3 & pos, D3DXCOLOR & col, D3DXVECTOR2 & size
 			(int)powf(10.0f, (float)m_nNumNumber - 1.0f - nCntNumber);
 		// 位置の設定
 		D3DXVECTOR3 pos;
-		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
-		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
+		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x* 0.75f));
+		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x* 0.75f));
 		pos.z = 0.0f;
 		// 初期化
 		m_pNumber[nCntNumber].Init(m_size.x, m_size.y, nDigits, m_fRotation, pos, m_col);
@@ -147,8 +147,8 @@ void CNumericString::UpdatePos(void)
 	for (int nCntNumber = 0; nCntNumber < m_nNumNumber; ++nCntNumber)
 	{		// 位置の設定
 		D3DXVECTOR3 pos;
-		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
-		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
+		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x* 0.75f));
+		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x* 0.75f));
 		pos.z = 0.0f;
 		m_pNumber[nCntNumber].SetPosition(pos);
 	}
@@ -163,8 +163,8 @@ void CNumericString::UpdateSize(void)
 	for (int nCntNumber = 0; nCntNumber < m_nNumNumber; ++nCntNumber)
 	{		// 位置の設定
 		D3DXVECTOR3 pos;
-		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
-		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
+		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x * 0.75f));
+		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x * 0.75f));
 		pos.z = 0.0f;
 		m_pNumber[nCntNumber].SetSize(m_size);
 		m_pNumber[nCntNumber].SetPosition(pos);
@@ -180,8 +180,8 @@ void CNumericString::UpdateRotation(void)
 	for (int nCntNumber = 0; nCntNumber < m_nNumNumber; ++nCntNumber)
 	{		// 位置の設定
 		D3DXVECTOR3 pos;
-		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
-		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x));
+		pos.x = m_pos.x + (sinf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x* 0.75f));
+		pos.y = m_pos.y + (cosf(m_fRotation + D3DX_PI*0.5f)*nCntNumber*(m_size.x* 0.75f));
 		pos.z = 0.0f;
 		m_pNumber[nCntNumber].SetRotation(m_fRotation);
 		m_pNumber[nCntNumber].SetPosition(pos);
