@@ -84,13 +84,7 @@ FLOAT3::LengthSq() const
 inline void
 FLOAT3::Norm()
 {
-	const float fLength = Length();
-	if (fLength > 0.0f)
-	{
-		x /= fLength;
-		y /= fLength;
-		z /= fLength;
-	}
+	D3DXVec3Normalize(this, this);
 }
 
 inline FLOAT3
