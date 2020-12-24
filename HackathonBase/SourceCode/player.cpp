@@ -12,6 +12,21 @@
 #include "texture.h"
 
 //-------------------------------------------------------------------------------------------------------------
+// マクロ定義
+//-------------------------------------------------------------------------------------------------------------
+#define PLAYER_GAGEFRAME_SIZE_Y (20.0f)							// ゲージフレームのサイズY
+#define PLAYER_GAGE_SIZE_X      (100.0f)						// ゲージのサイズX
+#define PLAYER_FRAME_SIZE_X     (100.0f)						// 枠のサイズX
+
+//-------------------------------------------------------------------------------------------------------------
+// 静的メンバ変数の初期化
+//-------------------------------------------------------------------------------------------------------------
+const D3DXVECTOR2 CPlayer::m_aDiffpos[CPlayer::UI_MAX] = {
+	{ -50.0f,60.0f },
+	{ -50.0f,60.0f },
+};
+
+//-------------------------------------------------------------------------------------------------------------
 // 生成
 //-------------------------------------------------------------------------------------------------------------
 CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR2 size)
@@ -55,8 +70,15 @@ void CPlayer::Draw(void)
 //-------------------------------------------------------------------------------------------------------------
 void CPlayer::InitImage(D3DXVECTOR3 &pos, D3DXVECTOR2 &size)
 {
+	// サイズの再設定
 	m_pImage.resize(IMG_MAX);
+	// プレイヤーの体
 	m_pImage[IMG_BODY] = CScene2D::Create(PRIORITY_CHARACTER, pos, ML_D3DXCOR_SET, ORIGINVERTEXTYPE_ROTCENTER, size);
-	m_pImage[IMG_BODY]->BindTexture(CTexture::GetTextureInfo(CTexture::NAME_FRAME));
-	//m_pImage = CScene2D::Create(PRIORITY_CHARACTER, pos,ML_D3DXCOR_SET, ORIGINVERTEXTYPE_ROTCENTER, size);
+	m_pImage[IMG_BODY]->BindTexture(CTexture::GetTextureInfo(CTexture::NAME_PLAYER));
+	// ゲージ
+	m_pImage[IMG_GAGE] = CScene2D::Create(PRIORITY_CHARACTER, pos, ML_D3DXCOR_SET, ORIGINVERTEXTYPE_CENTERLEFT, size);
+	m_pImage[IMG_GAGE]->BindTexture(CTexture::GetTextureInfo(CTexture::NAME_GAGE));
+	// 枠
+	m_pImage[IMG_FRAME] = CScene2D::Create(PRIORITY_CHARACTER, pos, ML_D3DXCOR_SET, ORIGINVERTEXTYPE_CENTERLEFT, size);
+	m_pImage[IMG_FRAME]->BindTexture(CTexture::GetTextureInfo(CTexture::NAME_FRAME));
 }
