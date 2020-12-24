@@ -49,14 +49,10 @@ public:
 	typedef enum
 	{
 		PRIORITY_NONE = -1,		// 無し
-		PRIORITY_3DMODEL,		// 3Dモデル
-		PRIORITY_FIELD,			// フィールド
-		PRIORITY_SHADOW,		// 影
-		PRIORITY_3DUI,			// 3DUI
-		PRIORITY_3DCOLLIDER,	// 3Dコライダー
-		PRIORITY_3DEFFECT,		// 3Dエフェクト
 		PRIORITY_BG,			// 2D背景
-		PRIORITY_2DUI,			// 2DUI
+		PRIORITY_BUI,			// 後ろのUI
+		PRIORITY_CHARACTER,		// 2Dキャラクター
+		PRIORITY_FUI,			// 前のUI
 		PRIORITY_2DEFFECT,		// 2Dエフェクト
 		PRIORITY_MAX,			// 最大数
 	}PRIORITY;
