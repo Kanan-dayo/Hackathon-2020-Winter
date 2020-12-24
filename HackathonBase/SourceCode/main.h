@@ -18,6 +18,7 @@
 #include "XAudio2.h"
 #define DIRECTINPUT_VERSION (0x0800)	// 警告対処用
 #include "dinput.h"
+#include <Xinput.h>
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -37,6 +38,7 @@ using namespace std;
 #pragma comment (lib, "dxguid.lib")
 #pragma comment (lib, "winmm.lib")
 #pragma comment (lib, "dinput8.lib")
+#pragma comment (lib, "xinput.lib")        // XInput入力処理に必要
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
