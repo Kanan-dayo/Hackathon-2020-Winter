@@ -191,6 +191,7 @@
     <ClCompile Include="SourceCode\texture.cpp" />
     <ClCompile Include="SourceCode\title.cpp" />
     <ClCompile Include="SourceCode\tutorial.cpp" />
+    <ClCompile Include="SourceCode\XGamepad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SourceCode\2Deffect.h" />
@@ -224,6 +225,7 @@
     <ClInclude Include="SourceCode\texture.h" />
     <ClInclude Include="SourceCode\title.h" />
     <ClInclude Include="SourceCode\tutorial.h" />
+    <ClInclude Include="SourceCode\XGamepad.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SourceCode\mylibrary.inl" />

@@ -24,6 +24,15 @@ class CPlayer : public CScene
 {
 public:
 
+	typedef enum
+	{
+		STATE_NONE = -1,
+		STATE_NORMAL,
+		STATE_CHARGE,
+		STATE_SMASH,
+		STATE_MAX
+	}STATE; 
+
 	// 画像
 	enum
 	{
@@ -56,6 +65,8 @@ public:
 	inline CScene2D*     GetImage(UINT nIndex) { return m_pImage[nIndex]; }		// 画像の取得
 
 protected:
+	void NormalProc(void);
+	void SmashProc(void);
 	bool GamepadOperationProc(void);											// ゲームパッド操作処理
 	bool KeyboardOperationProc(void);											// キーボード操作処理
 	void BodyAction(void);														// 体の行動処理
@@ -67,6 +78,7 @@ protected:
 	VEC3                 m_move;												// 移動量
 	float                m_fRotDest;											// 回転の到達値
 	float                m_fSpeed;												// 速度
+	STATE                m_state;												// 状態
 };
 
 

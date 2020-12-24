@@ -22,6 +22,7 @@
 #define PLAYER_FRAME_SIZE_X     (200.0f)						// 枠のサイズX
 #define PLAYER_ROTVALUECOEFFI	(0.05f)							// 回転値係数
 #define PLAYER_SPEEDLIMIT		(3.0f)							// 速度制限
+#define PLAYER_CHARGE			(2.0f)							// 速度制限
 
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
@@ -60,6 +61,7 @@ void CPlayer::Init(void)
 	m_move = ML_VEC3_UNSET;
 	m_fRotDest = ML_FLOAT_UNSET;
 	m_fSpeed = ML_FLOAT_UNSET;
+	m_state = STATE_NORMAL;
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -82,11 +84,9 @@ void CPlayer::Update(void)
 	// キーボード操作処理
 	else if (KeyboardOperationProc())
 	{
-		m_fSpeed += 0.05f;
 	}
 	else
 	{
-		m_fSpeed -= 0.05f;
 	}
 
 	// 体の行動処理
@@ -140,30 +140,53 @@ bool CPlayer::KeyboardOperationProc(void)
 	Ckeyboard &Keyboard = CManager::GetKeyboard();
 	VEC3 direNor = ML_VEC3_UNSET;
 	bool bOperat = false;
-	if (Keyboard.GetPress(DIK_A))
+
+	if (Keyboard.GetPress(DIK_SPACE))
 	{
-		direNor.x = -1.0f;
-		bOperat = true;
+		float fSizeX = m_pImage[IMG_GAGE]->GetSize()->x + PLAYER_CHARGE;
+		if (fSizeX > PLAYER_GAGE_SIZE_X)
+		{
+			fSizeX = PLAYER_GAGE_SIZE_X;
+		}
+		m_pImage[IMG_GAGE]->SetSizeX(fSizeX);
 	}
-	if (Keyboard.GetPress(DIK_D))
+	else if (Keyboard.GetRelease(DIK_SPACE))
 	{
-		direNor.x = 1.0f;
-		bOperat = true;
+		m_pImage[IMG_GAGE]->SetSizeX(0.0f);
 	}
-	if (Keyboard.GetPress(DIK_S))
+	else
 	{
-		direNor.y = -1.0f;
-		bOperat = true;
+		if (Keyboard.GetPress(DIK_A))
+		{
+			direNor.x = -1.0f;
+			bOperat = true;
+		}
+		if (Keyboard.GetPress(DIK_D))
+		{
+			direNor.x = 1.0f;
+			bOperat = true;
+		}
+		if (Keyboard.GetPress(DIK_S))
+		{
+			direNor.y = -1.0f;
+			bOperat = true;
+		}
+		if (Keyboard.GetPress(DIK_W))
+		{
+			direNor.y = 1.0f;
+			bOperat = true;
+		}
 	}
-	if (Keyboard.GetPress(DIK_W))
-	{
-		direNor.y = 1.0f;
-		bOperat = true;
-	}
+
 
 	if (bOperat)
 	{
 		m_fRotDest = atan2f(direNor.x, direNor.y);
+		m_fSpeed += 0.05f;
+	}
+	else
+	{
+		m_fSpeed -= 0.05f;
 	}
 
 	return bOperat;
@@ -202,14 +225,16 @@ void CPlayer::BodyAction(void)
 		m_fSpeed = ML_FLOAT_UNSET;
 	}
 
-	m_move.x = sinf(fRotation);
-	m_move.y = -cosf(fRotation);
-	m_move.Norm();
-	m_move *= m_fSpeed;
-	*pPos += m_move;
+	if (m_fSpeed != 0.0f)
+	{
+		m_move.x = sinf(fRotation);
+		m_move.y = -cosf(fRotation);
+		m_move.Norm();
+		m_move *= m_fSpeed;
+		*pPos += m_move;
 
-	m_pImage[IMG_BODY]->SetPosition(*pPos);
-	m_pImage[IMG_GAGE]->SetPosition(*pPos + m_aDiffpos[UI_GAGE]);
-	m_pImage[IMG_FRAME]->SetPosition(*pPos + m_aDiffpos[UI_FRAME]);
-
+		m_pImage[IMG_BODY]->SetPosition(*pPos);
+		m_pImage[IMG_GAGE]->SetPosition(*pPos + m_aDiffpos[UI_GAGE]);
+		m_pImage[IMG_FRAME]->SetPosition(*pPos + m_aDiffpos[UI_FRAME]);
+	}
 }
