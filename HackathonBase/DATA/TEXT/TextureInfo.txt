@@ -2,7 +2,7 @@
 # テクスチャファイル情報
 #---------------------------------------------
 [TEXTURE][NUMBER]
-NUMBER = 5
+NUMBER = 8
 
 [TEXTURE][FILENAME]
 FILENAME = DATA\TEXTURE\UI\Frame000.png
@@ -11,3 +11,6 @@ FILENAME = DATA\TEXTURE\UI\number000.png
 FILENAME = DATA\TEXTURE\UI\player000.png
 FILENAME = DATA\TEXTURE\UI\PleasePressButton000.png
 
+FILENAME = DATA\TEXTURE\RESULT\result.png
+FILENAME = DATA\TEXTURE\RESULT\result_text.png
+FILENAME = DATA\TEXTURE\RESULT\result_pair.png

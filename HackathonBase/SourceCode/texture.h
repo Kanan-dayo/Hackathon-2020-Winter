@@ -26,6 +26,11 @@ public:
 		NAME_NUMBER,					// 数字
 		NAME_PLAYER,					// プレイヤー
 		NAME_PleasePressButton000,		// ボタンを押してください
+
+		NAME_RESULT,					// リザルト
+		NAME_RESULT_TEXT,				// リザルトのテキスト
+		NAME_RESULT_NUMPAIR,			// リザルトの組数
+
 		NAME_MAX						// 最大数
 	};
 	enum
