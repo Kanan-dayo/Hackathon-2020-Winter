@@ -15,22 +15,35 @@
 //-------------------------------------------------------------------------------------------------------------
 // クラス定義
 //-------------------------------------------------------------------------------------------------------------
-class CPlayer : public CScene2D
+class CScene2D;
+class CPlayer : public CScene
 {
 public:
 
-	CPlayer() : CScene2D(PRIORITY_CHARACTER) {}		// コンストラクタ
-	~CPlayer() {}								// デストラクタ
+	typedef enum
+	{
+		IMG_NONE = -1,
+		IMG_BODY,
+		IMG_GAGE,
+		IMG_FRAME,
+		IMG_MAX
+	}IMG;
 
-	static CPlayer * Create(void);				// 生成
-	void             Init(void);				// 初期化
-	void             Uninit(void);				// 終了
-	void             Update(void);				// 更新
-	void             Draw(void);				// 描画
+	CPlayer() : CScene(PRIORITY_CHARACTER) {}									// コンストラクタ
+	~CPlayer() {}																// デストラクタ
+
+	static CPlayer *     Create(D3DXVECTOR3 pos, D3DXVECTOR2 size);				// 生成
+	void                 Init(void);											// 初期化
+	void                 Uninit(void);											// 終了
+	void                 Update(void);											// 更新
+	void                 Draw(void);											// 描画
+	void                 InitImage(D3DXVECTOR3 &pos, D3DXVECTOR2 &size);		// 画像の初期化
+
+	inline CScene2D*     GetImage(UINT nIndex) { return m_pImage[nIndex]; }		// 画像の取得
 
 protected:
-	CScene2D *       m_pImage;
-	D3DXVECTOR3      m_move;
+	MyVector<CScene2D*>  m_pImage;
+	D3DXVECTOR3          m_move;
 };
 
 
