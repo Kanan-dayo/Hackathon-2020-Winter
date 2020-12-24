@@ -19,6 +19,15 @@ class C2DUi;
 class CTutorial : public CMode
 {
 public:
+	/* 列挙型 */
+	typedef enum
+	{
+		TYPE_NAME = 0,
+		TYPE_KEYINFO,
+		TYPE_MAX
+	} TYPE;
+
+	/* 関数 */
 	CTutorial() {};					// コンストラクタ
 	~CTutorial() {};					// デストラクタ
 
@@ -29,7 +38,7 @@ public:
 	void Draw(void);				// 描画
 
 private:
-	C2DUi *pC2dui;					// ２DUIポインタ
+	C2DUi *m_pC2dui[TYPE::TYPE_MAX];	// ２DUIポインタ
 };
 
 #endif

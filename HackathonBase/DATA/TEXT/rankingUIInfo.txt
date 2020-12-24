@@ -1,0 +1,85 @@
+SCRIPT
+
+Rank = 0
+	// 順位
+	Index = 0
+	pos = 640 120
+	size = 400 200
+
+	// ペア数
+	Index = 1
+	pos = 400 360
+	size = 800 200
+
+	// 〇ペア
+	Index = 2
+	pos = 850 330
+	size = 100 200
+
+
+Rank = 1
+	// 順位
+	Index = 0
+	pos = 640 120
+	size = 400 200
+
+	// ペア数
+	Index = 1
+	pos = 400 360
+	size = 800 200
+
+	// 〇ペア
+	Index = 2
+	pos = 850 330
+	size = 100 200
+
+Rank = 2
+	// 順位
+	Index = 0
+	pos = 640 120
+	size = 400 200
+
+	// ペア数
+	Index = 1
+	pos = 400 360
+	size = 800 200
+
+	// 〇ペア
+	Index = 2
+	pos = 850 330
+	size = 100 200
+
+
+Rank = 3
+	// 順位
+	Index = 0
+	pos = 640 120
+	size = 400 200
+
+	// ペア数
+	Index = 1
+	pos = 400 360
+	size = 800 200
+
+	// 〇ペア
+	Index = 2
+	pos = 850 330
+	size = 100 200
+
+Rank = 4
+	// 順位
+	Index = 0
+	pos = 640 120
+	size = 400 200
+
+	// ペア数
+	Index = 1
+	pos = 400 360
+	size = 800 200
+
+	// 〇ペア
+	Index = 2
+	pos = 850 330
+	size = 100 200
+	
+END_SCRIPT
