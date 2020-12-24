@@ -433,7 +433,7 @@ TEXTUREANIMEINFO * CScene2D::GetAnimTexVariables(void)
 //-------------------------------------------------------------------------------------------------------------
 void CScene2D::SetRotation(float fRotation)
 {
-	if (m_fRotation = fRotation)
+	if (m_fRotation != fRotation)
 	{
 		m_fRotation = fRotation;
 		// 位置フラグを設定

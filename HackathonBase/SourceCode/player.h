@@ -56,12 +56,17 @@ public:
 	inline CScene2D*     GetImage(UINT nIndex) { return m_pImage[nIndex]; }		// 画像の取得
 
 protected:
-	static CONST D3DXVECTOR2 m_aDiffpos[UI_MAX];
-	static CONST D3DXCOLOR   m_aInitUiCol[UI_MAX];
-	static CONST D3DXVECTOR2 m_aInitUiSize[UI_MAX];
+	bool GamepadOperationProc(void);											// ゲームパッド操作処理
+	bool KeyboardOperationProc(void);											// キーボード操作処理
+	void BodyAction(void);														// 体の行動処理
+	static CONST D3DXVECTOR3 m_aDiffpos[UI_MAX];								// 位置の差
+	static CONST D3DXCOLOR   m_aInitUiCol[UI_MAX];								// UIの初期化カラー
+	static CONST D3DXVECTOR2 m_aInitUiSize[UI_MAX];								// UIの初期化大きさ
 
-	MyVector<CScene2D*>  m_pImage;
-	D3DXVECTOR3          m_move;
+	MyVector<CScene2D*>  m_pImage;												// 画像ポインタ
+	VEC3                 m_move;												// 移動量
+	float                m_fRotDest;											// 回転の到達値
+	float                m_fSpeed;												// 速度
 };
 
 
