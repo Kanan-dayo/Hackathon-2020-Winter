@@ -31,6 +31,13 @@ public:
 		NAME_RESULT_TEXT,				// リザルトのテキスト
 		NAME_RESULT_NUMPAIR,			// リザルトの組数
 
+		NAME_RANKING,					// ランキング
+		NAME_RANKING_1st,				// 1位
+		NAME_RANKING_2nd,				// 2位
+		NAME_RANKING_3rd,				// 3位
+		NAME_RANKING_4th,				// 4位
+		NAME_RANKING_5th,				// 5位
+
 		NAME_MAX						// 最大数
 	};
 	enum

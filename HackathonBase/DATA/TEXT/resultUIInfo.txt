@@ -1,0 +1,23 @@
+SCRIPT
+
+// リザルト
+Index = 0
+pos = 640 120
+size = 400 200
+
+// テキスト
+Index = 1
+pos = 400 360
+size = 800 200
+
+// 数字
+Index = 2
+pos = 850 330
+size = 100 200
+
+// ペア数
+Index = 3
+pos = 1140 360
+size = 200 200
+
+END_SCRIPT
