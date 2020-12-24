@@ -24,6 +24,7 @@ public:
 		NAME_FRAME,						// 枠
 		NAME_GAGE,						// ゲージ
 		NAME_NUMBER,					// 数字
+		NAME_PLAYER,					// プレイヤー
 		NAME_PleasePressButton000,		// ボタンを押してください
 		NAME_MAX						// 最大数
 	};
