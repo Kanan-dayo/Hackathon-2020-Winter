@@ -27,6 +27,52 @@ public:
 		TYPE_MAX
 	} TYPE;
 
+	/* タイトルとチュートリアルどっちでも使えるかも */
+	// 拡大率情報
+	typedef struct SCALING
+	{
+		SCALING()
+		{
+			OriginSize = D3DXVECTOR2(0.0f, 0.0f);
+			fScal = 1.0f;
+			fScalChange = 0.0f;
+			fScalDiff = 0.0f;
+			nTimeChange = 0;
+			nCntTimeChange = 0;
+			bChange = false;
+		}
+		// 設定
+		void Set(
+			D3DXVECTOR2 const & SouceSize,
+			float const & fSouceScalChange,
+			int const & nSouceTimeChange
+		)
+		{
+			OriginSize = SouceSize;
+			fScalChange = fSouceScalChange;
+			nTimeChange = nSouceTimeChange;
+			fScalDiff = (fScalChange - fScal) / nTimeChange;
+		}
+		D3DXVECTOR2 OriginSize;			// 元のサイズ
+		float fScal;					// 拡大率
+		float fScalChange;				// 目標拡大率
+		float fScalDiff;				// 拡大率上昇率
+		int nTimeChange;				// 切り替わる時間
+		int nCntTimeChange;				// 切り替わる時間カウント
+		bool bChange;					// 切り替わり中
+	} SCALING, *P_SCALING;
+
+	typedef struct PERFORM2DUI
+	{
+		SCALING * pScal;
+		C2DUi * pC2dui;
+	} PERFORM2DUI;
+	// サイズ変更の更新処理
+	static void Update_SizeChange(PERFORM2DUI * pPerfomUi);
+	// 演出UIの初期化処理
+	static void Init_PerfomUi(int const & nMaxUi, PERFORM2DUI * pPerfomUi);
+
+
 	/* 関数 */
 	CTutorial() {};					// コンストラクタ
 	~CTutorial() {};					// デストラクタ
@@ -38,7 +84,7 @@ public:
 	void Draw(void);				// 描画
 
 private:
-	C2DUi *m_pC2dui[TYPE::TYPE_MAX];	// ２DUIポインタ
+	PERFORM2DUI m_apPerfomUi[TYPE::TYPE_MAX];	// ２DUIポインタ
 };
 
 #endif

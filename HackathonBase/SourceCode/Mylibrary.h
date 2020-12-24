@@ -131,7 +131,7 @@ using namespace std;
 
 #define ML_ERRORCOUNT_MAX		(1048576)						// エラーカウント
 
-#define ML_VSHORT_UNSET			(0x000)							// 
+#define ML_VSHORT_UNSET			(0x000)							//
 
 #define ML_HALFSECONDCOUNT		(30)							// 1フレームカウント毎時のカウント
 
@@ -1047,7 +1047,7 @@ class CLoadInitSetingfromFile
 {
 public:
 	// * [contents] 列挙型定義
-	// * [memo] 
+	// * [memo]
 	// * LOADRESULT -> LR
 	// * MAKE -> M
 	// * BUFFER -> B
