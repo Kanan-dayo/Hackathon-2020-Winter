@@ -3,83 +3,83 @@ SCRIPT
 Rank = 0
 	// 順位
 	Index = 0
-	pos = 640 120
-	size = 400 200
+	pos = 400 240
+	size = 200 150
 
 	// ペア数
 	Index = 1
-	pos = 400 360
-	size = 800 200
+	pos = 600 230
+	size = 75 125
 
 	// 〇ペア
 	Index = 2
-	pos = 850 330
-	size = 100 200
+	pos = 900 250
+	size = 125 175
 
 
 Rank = 1
 	// 順位
 	Index = 0
-	pos = 640 120
-	size = 400 200
+	pos = 400 340
+	size = 200 150
 
 	// ペア数
 	Index = 1
-	pos = 400 360
-	size = 800 200
+	pos = 600 330
+	size = 75 125
 
 	// 〇ペア
 	Index = 2
-	pos = 850 330
-	size = 100 200
+	pos = 900 350
+	size = 125 175
 
 Rank = 2
 	// 順位
 	Index = 0
-	pos = 640 120
-	size = 400 200
+	pos = 400 440
+	size = 200 150
 
 	// ペア数
 	Index = 1
-	pos = 400 360
-	size = 800 200
+	pos = 600 430
+	size = 75 125
 
 	// 〇ペア
 	Index = 2
-	pos = 850 330
-	size = 100 200
+	pos = 900 450
+	size = 125 175
 
 
 Rank = 3
 	// 順位
 	Index = 0
-	pos = 640 120
-	size = 400 200
+	pos = 400 540
+	size = 200 150
 
 	// ペア数
 	Index = 1
-	pos = 400 360
-	size = 800 200
+	pos = 600 530
+	size = 75 125
 
 	// 〇ペア
 	Index = 2
-	pos = 850 330
-	size = 100 200
+	pos = 900 550
+	size = 125 175
 
 Rank = 4
 	// 順位
 	Index = 0
-	pos = 640 120
-	size = 400 200
+	pos = 400 640
+	size = 200 150
 
 	// ペア数
 	Index = 1
-	pos = 400 360
-	size = 800 200
+	pos = 600 630
+	size = 75 125
 
 	// 〇ペア
 	Index = 2
-	pos = 850 330
-	size = 100 200
+	pos = 900 650
+	size = 125 175
 	
 END_SCRIPT

@@ -89,13 +89,13 @@ HRESULT CRanking::LoadUIInfo(void)
 				sscanf(cReadText, "Rank = %d", &nRank);
 			// 番号
 			if (strcmp(cHeadText, "Index") == 0)
-				sscanf(cReadText, "Index = %d", &nIndex);
+				sscanf(cReadText, "	Index = %d", &nIndex);
 			// 座標
 			if (strcmp(cHeadText, "pos") == 0)
-				sscanf(cReadText, "pos = %f %f", &m_posUI[nRank][nIndex].x, &m_posUI[nRank][nIndex].y);
+				sscanf(cReadText, "	pos = %f %f", &m_posUI[nRank][nIndex].x, &m_posUI[nRank][nIndex].y);
 			// サイズ
 			if (strcmp(cHeadText, "size") == 0)
-				sscanf(cReadText, "size = %f %f", &m_sizeUI[nRank][nIndex].x, &m_sizeUI[nRank][nIndex].y);
+				sscanf(cReadText, "	size = %f %f", &m_sizeUI[nRank][nIndex].x, &m_sizeUI[nRank][nIndex].y);
 		}
 	}
 
