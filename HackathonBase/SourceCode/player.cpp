@@ -21,9 +21,19 @@
 //-------------------------------------------------------------------------------------------------------------
 // Ã“Iƒƒ“ƒo•Ï”‚Ì‰Šú‰»
 //-------------------------------------------------------------------------------------------------------------
-const D3DXVECTOR2 CPlayer::m_aDiffpos[CPlayer::UI_MAX] = {
+CONST D3DXVECTOR2 CPlayer::m_aDiffpos[CPlayer::UI_MAX] = {
 	{ -50.0f,60.0f },
 	{ -50.0f,60.0f },
+};
+
+CONST D3DXCOLOR   CPlayer::m_aInitUiCol[UI_MAX] = {
+	{ 1.0f,1.0f,1.0f,1.0f },
+	{ 0.5f,0.5f,0.5f,1.0f },
+};
+
+CONST D3DXVECTOR2 CPlayer::m_aInitUiSize[UI_MAX] = {
+	{ 0.0f,20.0f },
+	{ 100.0f,20.0f },
 };
 
 //-------------------------------------------------------------------------------------------------------------
@@ -32,6 +42,7 @@ const D3DXVECTOR2 CPlayer::m_aDiffpos[CPlayer::UI_MAX] = {
 CPlayer * CPlayer::Create(D3DXVECTOR3 pos, D3DXVECTOR2 size)
 {
 	CPlayer *pPlayer = new CPlayer;
+	pPlayer->InitImage(pos, size);
 	pPlayer->Init();
 	return pPlayer;
 }
@@ -76,9 +87,9 @@ void CPlayer::InitImage(D3DXVECTOR3 &pos, D3DXVECTOR2 &size)
 	m_pImage[IMG_BODY] = CScene2D::Create(PRIORITY_CHARACTER, pos, ML_D3DXCOR_SET, ORIGINVERTEXTYPE_ROTCENTER, size);
 	m_pImage[IMG_BODY]->BindTexture(CTexture::GetTextureInfo(CTexture::NAME_PLAYER));
 	// ƒQ[ƒW
-	m_pImage[IMG_GAGE] = CScene2D::Create(PRIORITY_CHARACTER, pos, ML_D3DXCOR_SET, ORIGINVERTEXTYPE_CENTERLEFT, size);
+	m_pImage[IMG_GAGE] = CScene2D::Create(PRIORITY_CHARACTER, pos, m_aInitUiCol[UI_GAGE], ORIGINVERTEXTYPE_CENTERLEFT, m_aInitUiSize[UI_GAGE]);
 	m_pImage[IMG_GAGE]->BindTexture(CTexture::GetTextureInfo(CTexture::NAME_GAGE));
 	// ˜g
-	m_pImage[IMG_FRAME] = CScene2D::Create(PRIORITY_CHARACTER, pos, ML_D3DXCOR_SET, ORIGINVERTEXTYPE_CENTERLEFT, size);
+	m_pImage[IMG_FRAME] = CScene2D::Create(PRIORITY_CHARACTER, pos, m_aInitUiCol[UI_FRAME], ORIGINVERTEXTYPE_CENTERLEFT, m_aInitUiSize[UI_FRAME]);
 	m_pImage[IMG_FRAME]->BindTexture(CTexture::GetTextureInfo(CTexture::NAME_FRAME));
 }

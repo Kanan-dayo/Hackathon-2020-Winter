@@ -56,7 +56,9 @@ public:
 	inline CScene2D*     GetImage(UINT nIndex) { return m_pImage[nIndex]; }		// ‰æ‘œ‚ÌŽæ“¾
 
 protected:
-	static const D3DXVECTOR2 m_aDiffpos[UI_MAX];
+	static CONST D3DXVECTOR2 m_aDiffpos[UI_MAX];
+	static CONST D3DXCOLOR   m_aInitUiCol[UI_MAX];
+	static CONST D3DXVECTOR2 m_aInitUiSize[UI_MAX];
 
 	MyVector<CScene2D*>  m_pImage;
 	D3DXVECTOR3          m_move;
