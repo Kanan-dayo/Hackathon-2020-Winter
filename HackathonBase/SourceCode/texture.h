@@ -21,9 +21,10 @@ public:
 	enum
 	{
 		NAME_NONE = -1,					// 無し
-		NAME_FRAME,
-		NAME_NUMBER,
-		NAME_PleasePressButton000,
+		NAME_FRAME,						// 枠
+		NAME_GAGE,						// ゲージ
+		NAME_NUMBER,					// 数字
+		NAME_PleasePressButton000,		// ボタンを押してください
 		NAME_MAX						// 最大数
 	};
 	enum
