@@ -40,6 +40,21 @@ public:
 		D3DXVECTOR2 tex;	// テクスチャ座標
 	} VERTEX_3D;
 
+	// 合成演算
+	typedef enum
+	{
+		BLEND_NORMAL = 0,		// 通常
+		BLEND_TRANSLUCENT,		// 半透明
+		BLEND_ADD,				// 加算合成
+		BLEND_ADD_TRANSLUCENT,	// 加算半透明
+		BLEND_SUBTRACTION,		// 減算
+		BLEND_MULTIPUL1,		// 乗算1
+		BLEND_MULTIPUL2,		// 乗算2
+		BLEND_SCREEN,			// スクリーン
+		BLEND_REVERSE,			// リバース
+		BLEND_MAX				// 最大数
+	} BLEND;
+
 
 	/* -- メンバ関数 -- */
 	CRenderer();
@@ -48,6 +63,13 @@ public:
 	void Uninit(void);							// 終了処理
 	void UpDate(void);							// 更新処理
 	void Draw(void);							// 描画処理
+
+	// 合成処理
+	//	blend	: 合成演算
+	void SetBlend(
+		BLEND const &blend = BLEND_TRANSLUCENT	// 合成演算
+	);
+
 
 	inline LPDIRECT3DDEVICE9 GetDevice(void) { return m_pD3DDevice; }			// デバイスの取得
 	inline CFade *GetFade(void) { return m_pFade; }								// フェードの取得
