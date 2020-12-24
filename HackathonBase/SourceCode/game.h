@@ -16,9 +16,19 @@
 // クラス定義
 //-------------------------------------------------------------------------------------------------------------
 class C2DUi;
+class CPlayer;
 class CGame : public CMode
 {
 public:
+
+	typedef enum
+	{
+		MODE_NONE = -1,
+		MODE_NORMAL,
+		MODE_START,
+		MODE_FINISH,
+	} MODE;
+
 	CGame() {};					// コンストラクタ
 	~CGame() {};					// デストラクタ
 
@@ -28,8 +38,19 @@ public:
 	void Update(void);				// 更新
 	void Draw(void);				// 描画
 
+	C2DUi *Get2dui(void) { return m_pC2dui; }
+	CPlayer *GetPlayer(void) { return m_pPlayer; }
+
 private:
-	C2DUi *pC2dui;					// ２DUIポインタ
+	void ModeTrans(void);			// モード遷移
+	void SetMode(MODE mode);		// モードの設定
+
+	static CONST D3DXVECTOR3 m_InitPosPlayer;
+	static CONST D3DXVECTOR2 m_InitSizePlayer;
+	C2DUi*   m_pC2dui;			// ２DUIポインタ
+	CPlayer* m_pPlayer;			// プレイヤーのポインタ[
+	MODE     m_mode;			// モード
+	UINT     m_nCntMode;		// モードカウント
 };
 
 #endif
