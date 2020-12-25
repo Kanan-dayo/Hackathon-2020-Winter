@@ -29,6 +29,7 @@ public:
 		STATE_NONE = -1,		// 無し
 		STATE_STANDBY,			// スタンバイ
 		STATE_NORMAL,			// 通常
+		STATE_DAMAGE,			// ダメージ
 		STATE_DIE,				// 死
 		STATE_MAX				// 最大数
 	}STATE;
@@ -70,23 +71,27 @@ public:
 	void                 Update(void);											// 更新
 	void                 Draw(void);											// 描画
 	void                 InitImage(D3DXVECTOR3 &pos, TYPE& type);				// 画像の初期化
-
+	STATE                GetState(void) { return m_state; }
 	void                 SetState(CONST STATE state);							// 状態の設定
-
+	bool                 DamageProc(VEC3& move,D3DXVECTOR3 *pPos);									// ダメージ処理
 	inline CScene2D*     GetImage(UINT nIndex) { return m_pImage[nIndex]; }		// 画像の取得
-
+	void                 SetAppearance(D3DXVECTOR3 &pos);
 protected:
 	void NormalProc(void);														// 通常処理
 	void DieProc(void);															// 死ぬ処理
-
+	void DamageProc(void);														// ダメージ処理
+	static D3DXCOLOR m_LifeCol[3];												// ライフの色
 	static CONST D3DXVECTOR3 m_aDiffpos[UI_MAX];								// 位置の差
 	static CONST D3DXVECTOR2 m_aInitUiSize[UI_MAX];								// UIの初期化大きさ
+	VEC3                 m_Scatter[UI_MAX];										// 散る
 	TYPE                 m_type;												// 種類
-	MyVector<CScene2D*>  m_pImage;												// 画像ポインタ
+	vector<CScene2D*>    m_pImage;												// 画像ポインタ
 	VEC3                 m_move;												// 移動量
 	float                m_fSpeed;												// 速度
 	STATE                m_state;												// 状態
 	UINT                 m_nCntState;											// 状態カウント
+	int                  m_nLife;												// ライフ
+	int                  m_nCntAction;											// 行動カウント
 };
 
 

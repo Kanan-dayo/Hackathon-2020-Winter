@@ -1229,6 +1229,7 @@ inline void MyVector<T>::clear(void)
 	{
 		this->m_nSize = 0;
 		this->m_nCapacity = 0;
+
 		delete[]this->m_pData;
 		this->m_pData = NULL;
 	}
