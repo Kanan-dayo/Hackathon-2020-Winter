@@ -35,14 +35,7 @@ public:
 	typedef enum
 	{
 		PARTICLE_ID_NONE = -1,
-		PARTICLE_ID_UNKNOWN,			// 未だ決まっていない
-		PARTICLE_ID_ERUPTION_0,			// 噴火 0 アニメーション 煙
-		PARTICLE_ID_SMOKE,				// 煙 アニメーション
-		PARTICLE_ID_SPARK,				// 火花 アニメーション
-		PARTICLE_ID_BLOCK,				// 噴火用ブロック
-		PARTICLE_ID_FIRE,				// 火
 		PARTICLE_ID_EXPLOSION,			// 爆発
-		PARTICLE_ID_AIRLINE,			// 空気の線
 		PARTICLE_ID_MAX,
 	} PARTICLE_ID;
 	/* 構造体 */
