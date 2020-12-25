@@ -17,7 +17,7 @@
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
 //-------------------------------------------------------------------------------------------------------------
-#define LINK_RANKINGUIINFO	("DATA/TEXT/rankingUIInfo.txt")		// UI情報のあるテキストファイル
+#define LINK_RANKINGUIINFO	("DATA/TEXT/UIInfo/rankingUIInfo.txt")		// UI情報のあるテキストファイル
 #define LINK_RANKING		("DATA/SAVEDATA/ranking.txt")		// ランキングのファイル
 #define POS_RANLING_TITLE	(D3DXVECTOR3(640.0f, 120.0f, 0.0f))	// ランキングの座標
 #define SIZE_RANLING_TITLE	(D3DXVECTOR2(400.0f, 200.0f))		// ランキングのサイズ

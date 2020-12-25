@@ -11,6 +11,15 @@
 #include "texture.h"
 #include "2DUI.h"
 #include "player.h"
+#include "keyboard.h"
+#include "renderer.h"
+#include "fade.h"
+
+//-------------------------------------------------------------------------------------------------------------
+// マクロ定義
+//-------------------------------------------------------------------------------------------------------------
+#define LINK_GAMEUIINFO	("DATA/TEXT/UIInfo/gameUIInfo.txt")		// UI情報のあるテキストファイル
+#define TIME_DEFAULT	(60)									// 最初のタイム
 
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
@@ -32,18 +41,8 @@ CGame * CGame::Create(void)
 //-------------------------------------------------------------------------------------------------------------
 void CGame::Init(void)
 {
-	N2Dui_seting seting;
-	seting.bDisp = true;
-	seting.col = ML_D3DXCOR_SET;
-	seting.fRotation = ML_FLOAT_UNSET;
-	seting.mask.unMask = N2Dui_mask::E_M_FLASHING | N2Dui_mask::E_M_FADE | N2Dui_mask::E_M_NUMBER;
-	seting.nTextureID = CTexture::NAME_NUMBER;
-	seting.nValue = 60;
-	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
-	seting.size = D3DXVECTOR2(200.0f, 200.0f);
-	m_pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
-	m_pC2dui->SetFadeAbility(N2Dui_fade(true, true, 60, -1));
-	m_pC2dui->SetFlashingAbility(N2Dui_flashing(true, 3));
+	// ゲームUIの生成
+	CreateGameUI();
 
 	m_mode = MODE_NONE;
 	m_nCntMode = ML_INT_UNSET;
@@ -75,10 +74,50 @@ void CGame::Draw(void)
 }
 
 //-------------------------------------------------------------------------------------------------------------
+// ゲームUIの生成
+//-------------------------------------------------------------------------------------------------------------
+void CGame::CreateGameUI(void)
+{
+	N2Dui_seting seting;
+	seting.bDisp = true;
+	seting.col = ML_D3DXCOR_SET;
+	seting.fRotation = ML_FLOAT_UNSET;
+
+	// ペア数
+	seting.nTextureID = CTexture::NAME_NUMBER;
+	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
+	seting.size = D3DXVECTOR2(200.0f, 200.0f);
+	m_pGameUI[GAMEUI_PAIR] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+
+	// スコア
+	seting.mask.unMask = N2Dui_mask::E_M_NUMBER;
+	seting.nTextureID = CTexture::NAME_NUMBER;
+	seting.nValue = 0;
+	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
+	seting.size = D3DXVECTOR2(200.0f, 200.0f);
+	m_pGameUI[GAMEUI_SCORE] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+
+	// タイマー
+	seting.mask.unMask = N2Dui_mask::E_M_NUMBER;
+	seting.nTextureID = CTexture::NAME_NUMBER;
+	seting.nValue = TIME_DEFAULT;
+	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
+	seting.size = D3DXVECTOR2(200.0f, 200.0f);
+	m_pGameUI[GAMEUI_TIMER] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+}
+
+//-------------------------------------------------------------------------------------------------------------
 // モード遷移
 //-------------------------------------------------------------------------------------------------------------
 void CGame::ModeTrans(void)
 {
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	{
+		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
+		{
+			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_TITLE);
+		}
+	}
 }
 
 //-------------------------------------------------------------------------------------------------------------
