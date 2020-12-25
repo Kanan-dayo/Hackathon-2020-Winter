@@ -17,11 +17,24 @@
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
 //-------------------------------------------------------------------------------------------------------------
-#define ROTATIONSPEED	(0.02f)	// 回転速度
-#define MOVESPEED		(15.0f)	// 次ページの遷移スピード
-#define SCALTIME		(500)	// 拡大率の目標拡大率にかかる時間
+#define ROTATIONSPEED		(0.02f)	// 回転速度
+#define MOVESPEED			(15.0f)	// 次ページの遷移スピード
+#define SCALTIME			(50)	// 拡大率の目標拡大率にかかる時間
+#define SCALPERSENT			(0.3f)	// 拡大率
 
+// ページ用
+#define STORY_1_POS			(D3DXVECTOR3(800.0f, 300.0f, 0.0f))		// ストーリー1位置
+#define STORY_2_POS			(D3DXVECTOR3(800.0f, 300.0f, 0.0f))		// ストーリー2位置
 
+#define STORY_1_SIZE		(D3DXVECTOR2(800.0f, 300.0f))	// ストーリー1_サイズ
+#define STORY_2_SIZE		(D3DXVECTOR2(800.0f, 300.0f))	// ストーリー2_サイズ
+
+// サンタ用
+#define STORY_SANTA_POS			(D3DXVECTOR3(800.0f, 600.0f, 0.0f))	// ストーリープレス位置
+
+#define STORY_SANTA_SIZE		(D3DXVECTOR2(100.0f, 100.0f))	// ストーリープレス_サイズ
+
+#define STORY_SANTA_MOVEMENT	(5)							// 微振動
 
 //-------------------------------------------------------------------------------------------------------------
 // 生成
@@ -40,34 +53,56 @@ void CStory::Init(void)
 {
 	// 初期化処理
 	Init_PerfomUi(TYPE::TYPE_MAX, m_apPerfomUi);
-	m_nPushButton = -1;
+	m_nPushButton = TYPE::TYPE_STORYBG;
+	for (int nCntUi = 0; nCntUi < TYPE::TYPE_MAX; nCntUi++)
+	{
+		m_apPerfomUi[nCntUi].pC2dui = NULL;
+		m_apPerfomUi[nCntUi].pScal = NULL;
+	}
+	m_nCntFram = 0;
+
 
 	N2Dui_seting seting;
 	seting.bDisp = true;
 	seting.col = ML_D3DXCOR_SET;
 	seting.fRotation = ML_FLOAT_UNSET;
 	seting.nValue = 1000;
-	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
-	seting.size = D3DXVECTOR2(1280.0f, 720.0f);
 	seting.mask.unMask = N2Dui_mask::E_M_FLASHING | N2Dui_mask::E_M_FADE;
 
 
-	// ストーリー3
-	seting.nTextureID = CTexture::NAME_RESULT;
-	m_apPerfomUi[TYPE::TYPE_STORY_3].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
-	m_apPerfomUi[TYPE::TYPE_STORY_3].bMove = false;
+	// ストーリー背景
+	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
+	seting.size = D3DXVECTOR2(1280.0f, 720.0f);
+	seting.nTextureID = CTexture::NAME_TITLE_BG;
+	m_apPerfomUi[TYPE::TYPE_STORYBG].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_apPerfomUi[TYPE::TYPE_STORYBG].bMove = false;
 
 
 	// ストーリー2
+	seting.pos = STORY_2_POS;
+	seting.size = STORY_2_SIZE;
 	seting.nTextureID = CTexture::NAME_RANKING;
 	m_apPerfomUi[TYPE::TYPE_STORY_2].pC2dui = C2DUi::Create(seting,CScene::PRIORITY_BUI);
 	m_apPerfomUi[TYPE::TYPE_STORY_2].bMove = false;
-
+	m_apPerfomUi[TYPE::TYPE_STORY_2].pScal = new SCALING;
+	m_apPerfomUi[TYPE::TYPE_STORY_2].pScal->Set(seting.size, SCALPERSENT);
 
 	// ストーリー1
+	seting.pos = STORY_1_POS;
+	seting.size = STORY_1_SIZE;
 	seting.nTextureID = CTexture::NAME_TITLE_BG;
 	m_apPerfomUi[TYPE::TYPE_STORY_1].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 	m_apPerfomUi[TYPE::TYPE_STORY_1].bMove = false;
+	m_apPerfomUi[TYPE::TYPE_STORY_1].pScal = new SCALING;
+	m_apPerfomUi[TYPE::TYPE_STORY_1].pScal->Set(seting.size, SCALPERSENT);
+
+
+	// ストーリープレス
+	seting.pos = STORY_SANTA_POS;
+	seting.size = STORY_SANTA_SIZE;
+	seting.nTextureID = CTexture::NAME_PLAYER;
+	m_apPerfomUi[TYPE::TYPE_STORY_SANTA].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_apPerfomUi[TYPE::TYPE_STORY_SANTA].bMove = true;
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -83,6 +118,7 @@ void CStory::Uninit(void)
 			delete m_apPerfomUi[nCntUi].pScal;
 			m_apPerfomUi[nCntUi].pScal = NULL;
 		}
+		m_apPerfomUi[nCntUi].pC2dui = NULL;
 	}
 }
 
@@ -92,7 +128,7 @@ void CStory::Uninit(void)
 void CStory::Update(void)
 {
 	// サイズ変更の更新処理
-	for (int nCntUi = 0; nCntUi < TYPE::TYPE_MAX; nCntUi++)
+	for (int nCntUi = TYPE::TYPE_STORY_1; nCntUi < TYPE::TYPE_MAX; nCntUi++)
 	{
 		Update_UiMove(nCntUi);
 	}
@@ -100,12 +136,12 @@ void CStory::Update(void)
 	{
 		// 押した回数アップ
 		m_nPushButton++;
-		if (m_nPushButton >= 0 && m_nPushButton < TYPE::TYPE_MAX)
+		if (m_nPushButton >= TYPE::TYPE_STORY_1 && m_nPushButton <= TYPE::TYPE_STORY_2)
 		{
 			m_apPerfomUi[m_nPushButton].bMove = true;
 		}
 
-		if (m_nPushButton >= TYPE::TYPE_MAX)
+		if (m_nPushButton > TYPE::TYPE_STORY_2)
 		{
 			if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 			{
@@ -127,26 +163,51 @@ void CStory::Draw(void)
 //-------------------------------------------------------------------------------------------------------------
 void CStory::Update_UiMove(int const & nUi)
 {
-	if (nUi < 0 || nUi >= TYPE::TYPE_MAX) return;
-	else if (!m_apPerfomUi[nUi].pC2dui ||
+	if (!m_apPerfomUi[nUi].pC2dui ||
 		!m_apPerfomUi[nUi].bMove) return;
+
 	C2DUi * p2Dui = m_apPerfomUi[nUi].pC2dui;
-	// 頂点座標の回転処理
-	float fRotation = p2Dui->GetImage().pImage->GetRotation();
-	fRotation += ROTATIONSPEED;
-	p2Dui->GetImage().pImage->SetRotation(fRotation);
 
-	// UIの移動処理
-	D3DXVECTOR3 * pos = p2Dui->GetImage().pImage->GetPosition();
-	pos->x += MOVESPEED;
-	pos->y -= MOVESPEED;
+	// サンタ用
+	if (nUi == TYPE::TYPE_STORY_SANTA)
+	{
+		// UIの移動処理
+		D3DXVECTOR3 * pos = p2Dui->GetImage().pImage->GetPosition();
 
-	// 拡大率の変化処理
+		pos->x = STORY_SANTA_POS.x - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
+		pos->y = STORY_SANTA_POS.y - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
+		// 頂点座標のフラグ設定
+		p2Dui->GetImage().pImage->SetPosflag();
+		// フレームカウントアップ
+		m_nCntFram++;
+	}
+	// ページ用
+	else
+	{
+		// 頂点座標の回転処理
+		float fRotation = p2Dui->GetImage().pImage->GetRotation();
+		fRotation += ROTATIONSPEED;
+		p2Dui->GetImage().pImage->SetRotation(fRotation);
+
+		// UIの移動処理
+		D3DXVECTOR3 * pos = p2Dui->GetImage().pImage->GetPosition();
+		pos->x += MOVESPEED;
+		pos->y -= MOVESPEED;
+
+		// 拡大率の変化処理
+		Update_SizeChange(&m_apPerfomUi[nUi]);
 
 
-
-	// 頂点座標のフラグ設定
-	p2Dui->GetImage().pImage->SetPosflag();
+		// 頂点座標のフラグ設定
+		p2Dui->GetImage().pImage->SetPosflag();
+		// 制限を設ける
+		if (pos->x > 1500.0f ||
+			pos->y < -500.0f)
+		{
+			m_apPerfomUi[nUi].pC2dui->Release();
+			m_apPerfomUi[nUi].pC2dui = NULL;
+		}
+	}
 }
 
 
@@ -161,49 +222,26 @@ void CStory::Update_UiMove(int const & nUi)
 //-------------------------------------------------------------------------------------------------------------
 void CStory::Update_SizeChange(PERFORM2DUI * pPerfomUi)
 {
-	/*
 	if (!pPerfomUi->pScal) return;
 	// 変数宣言
 	SCALING * pScal = pPerfomUi->pScal;
-	// UIの取得
-	D3DXVECTOR2 * pSize;	// サイズ情報
-							// サイズ情報の取得
-	pSize = pPerfomUi->pC2dui->GetImage().pImage->GetSize();
 	// 切り替えOFF|切り替わるON/OFF
-	if (pScal->nCntTimeChange == pScal->nTimeChange)
+	if (pScal->nCntTimeChange >= SCALTIME)
 	{
-		// 切り替わるON/OFF
-		pScal->bChange = !pScal->bChange;
-		// 切り替わるOFF時
-		if (!pScal->bChange)
-		{
-			// 拡大率の差分
-			pScal->fScalDiff = (pScal->fScalChange - pScal->fScal) / pScal->nTimeChange;
-			// 目標の拡大率に強制変化
-			pScal->fScal = 1.0f;
-		}
-		// 切り替わるON時
-		else
-		{
-			// 目標の拡大率に強制変化
-			pScal->fScal = pScal->fScalChange;
-			// 拡大率の差分
-			pScal->fScalDiff = (1.0f - pScal->fScalChange) / pScal->nTimeChange;
-		}
-		// カウント初期化
-		pScal->nCntTimeChange = 0;
-		// 関数を抜ける
 		return;
 	}
-	// 切り替わる時間加算
-	pScal->nCntTimeChange++;
+	// UIの取得
+	D3DXVECTOR2 * pSize;	// サイズ情報
+	// サイズ情報の取得
+	pSize = pPerfomUi->pC2dui->GetImage().pImage->GetSize();
 	// 拡大率の変化
 	pScal->fScal += pScal->fScalDiff;
 	// サイズの変化
 	*pSize = pScal->OriginSize * pScal->fScal;
+	// 切り替わる時間加算
+	pScal->nCntTimeChange++;
 	// 頂点カラーの設定
 	pPerfomUi->pC2dui->GetImage().pImage->SetPosflag();
-	*/
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -224,7 +262,9 @@ void CStory::Init_PerfomUi(int const & nMaxUi, PERFORM2DUI * pPerfomUi)
 //-------------------------------------------------------------------------------------------------------------
 void CStory::SCALING::Set(D3DXVECTOR2 const & SouceSize, float const & fSouceScalChange)
 {
+	nCntTimeChange = 0;
+	fScal = 1.0f;
 	OriginSize = SouceSize;
 	fScalChange = fSouceScalChange;
-	fScalDiff = (fScalChange - 1.0f) / SCALTIME;
+	fScalDiff = (fScalChange - fScal) / SCALTIME;
 }
