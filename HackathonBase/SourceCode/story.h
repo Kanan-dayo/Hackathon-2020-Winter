@@ -22,10 +22,10 @@ public:
 	/* —ñ‹“Œ^ */
 	typedef enum
 	{
-		TYPE_STORYBG = 0,
-		TYPE_STORY_1,
+		TYPE_STORY_1 = 0,
 		TYPE_STORY_2,
-		TYPE_STORY_SANTA,
+		TYPE_STORY_SANTA_NORMAL,
+		TYPE_STORY_SANTA_IKARI,
 		TYPE_MAX
 	} TYPE;
 
