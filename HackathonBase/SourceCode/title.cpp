@@ -18,6 +18,13 @@
 // マクロ定義
 //-------------------------------------------------------------------------------------------------------------
 #define BGSCROLLUP	(0.01f)	// スクロール上昇値
+/* 位置情報 */
+#define TITLENAME_POS	(D3DXVECTOR3(640.0f, 200.0f, 0.0f))	// タイトル名位置
+#define TITLEPRESS_POS	(D3DXVECTOR3(640.0f, 500.0f, 0.0f))	// プレススタート位置
+/* サイズ情報 */
+#define TITLENAME_SIZE	(D3DXVECTOR2(1104.0f, 204.0f))		// タイトル名サイズ
+#define TITLEPRESS_SIZE	(D3DXVECTOR2(411.0f, 60.0f))		// プレススタートサイズ
+
 
 //-------------------------------------------------------------------------------------------------------------
 // 生成
@@ -48,14 +55,15 @@ void CTitle::Init(void)
 
 
 	// 背景
-	seting.nTextureID = CTexture::NAME_RESULT_NUMPAIR;
+	seting.nTextureID = CTexture::NAME_TITLE_BG;
 	seting.size = D3DXVECTOR2(1280.0f, 720.0f);
 	m_apPerfomUi[TYPE::TYPE_BG].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 
 
 	// タイトル名
-	seting.size = D3DXVECTOR2(200.0f, 200.0f);
-	seting.nTextureID = CTexture::NAME_RESULT;
+	seting.pos = TITLENAME_POS;
+	seting.size = TITLENAME_SIZE;
+	seting.nTextureID = CTexture::NAME_TITLE_NAME;
 	m_apPerfomUi[TYPE::TYPE_NAME].pC2dui = C2DUi::Create(seting,CScene::PRIORITY_BUI);
 	// 拡大率設定
 	m_apPerfomUi[TYPE::TYPE_NAME].pScal = new SCALING;
@@ -63,14 +71,11 @@ void CTitle::Init(void)
 
 
 	// キー入力ボタン
-	seting.pos = D3DXVECTOR3(640.0f, 500.0f, 0.0f);
-	seting.size = D3DXVECTOR2(400.0f, 200.0f);
-	seting.nTextureID = CTexture::NAME_PleasePressButton000;
+	seting.pos = TITLEPRESS_POS;
+	seting.size = TITLEPRESS_SIZE;
+	seting.nTextureID = CTexture::NAME_TITLE_PRESSSTART;
 	m_apPerfomUi[TYPE::TYPE_KEYINFO].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 	m_apPerfomUi[TYPE::TYPE_KEYINFO].pC2dui->SetFadeAbility(N2Dui_fade(true, true, 60, -1));
-	// 拡大率設定
-	m_apPerfomUi[TYPE::TYPE_KEYINFO].pScal = new SCALING;
-	m_apPerfomUi[TYPE::TYPE_KEYINFO].pScal->Set(seting.size, 1.2f, 60);
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -94,7 +99,6 @@ void CTitle::Uninit(void)
 //-------------------------------------------------------------------------------------------------------------
 void CTitle::Update(void)
 {
-	//m_apPerfomUi[TYPE::TYPE_NAME]->
 	// 背景スクロール処理
 	Update_BGScroll();
 	// サイズ変更の更新処理

@@ -38,6 +38,10 @@ public:
 		NAME_RANKING_4th,				// 4位
 		NAME_RANKING_5th,				// 5位
 
+		NAME_TITLE_BG,					// タイトル背景
+		NAME_TITLE_NAME,				// タイトル名
+		NAME_TITLE_PRESSSTART,			// タイトルプレススタート
+
 		NAME_MAX						// 最大数
 	};
 	enum

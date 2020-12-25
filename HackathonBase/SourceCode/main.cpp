@@ -41,7 +41,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
-	//_CrtSetBreakAlloc(176);
+	//_CrtSetBreakAlloc(331);
 	WNDCLASSEX wcex =
 	{
 		sizeof(WNDCLASSEX),				// WNDCLASSEXのメモリサイズの指定
@@ -87,7 +87,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		NULL);						// ウィンドウ作成データ
 
 	DWORD dwCurrentTime = NULL;		// 現在時刻
-	DWORD dwExecLastTime = NULL;	// 最後に処理した時刻	
+	DWORD dwExecLastTime = NULL;	// 最後に処理した時刻
 	DWORD dwFrameCount = NULL;		// 計測用時刻
 	DWORD dwFPSLastTime = NULL;		// 保存用時刻
 
