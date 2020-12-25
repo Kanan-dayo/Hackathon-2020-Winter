@@ -25,7 +25,6 @@ CScene2D::CScene2D(CScene::PRIORITY priority) : CScene(priority)
 {
 	m_pTexture = nullptr;
 	m_TexAnimInfo = { 0,0,0,false,false };
-	m_bTexUpScroll = false;
 }
 
 //-------------------------------------------------------------------------------------------------------------
