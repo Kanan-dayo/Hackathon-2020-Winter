@@ -91,8 +91,13 @@ public:
 	void Draw(void);					// 描画
 
 private:
+	// 紙芝居移動処理
+	void Update_UiMove(int const & nUi);
+
+	/* 変数 */
 	PERFORM2DUI m_apPerfomUi[TYPE::TYPE_MAX];	// ２DUIポインタ
-	float m_fBgTexY;							// 背景テクスチャーy
+	int			m_nPushButton;					// 押したボタン回数
+
 };
 
 #endif

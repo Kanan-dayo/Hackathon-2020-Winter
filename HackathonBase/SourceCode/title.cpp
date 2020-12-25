@@ -115,8 +115,8 @@ void CTitle::Update(void)
 			m_apPerfomUi[TYPE::TYPE_NAME].pC2dui->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
 			// キーボタンをフェードする
 			m_apPerfomUi[TYPE::TYPE_KEYINFO].pC2dui->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
-
-			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_TUTORIAL);
+			// ストーリーモードに遷移
+			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_STORY);
 		}
 	}
 }
