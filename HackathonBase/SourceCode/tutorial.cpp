@@ -15,6 +15,16 @@
 #include "Scene2D.h"
 
 //-------------------------------------------------------------------------------------------------------------
+// マクロ定義
+//-------------------------------------------------------------------------------------------------------------
+/* 位置情報 */
+#define TUTORIALSKIP_POS	(D3DXVECTOR3(1100.0f, 650.0f, 0.0f))	// チュートリアルスキップ位置
+
+/* サイズ情報 */
+#define TUTORIALSKIP_SIZE	(D3DXVECTOR2(300.0f, 150.0f))		// チュートリアルスキップサイズ
+
+
+//-------------------------------------------------------------------------------------------------------------
 // 生成
 //-------------------------------------------------------------------------------------------------------------
 CTutorial * CTutorial::Create(void)
@@ -43,23 +53,16 @@ void CTutorial::Init(void)
 
 
 	// タイトル名
-	seting.size = D3DXVECTOR2(200.0f, 200.0f);
-	seting.nTextureID = CTexture::NAME_RESULT;
+	seting.size = D3DXVECTOR2(1280.0f, 720.0f);
+	seting.nTextureID = CTexture::NAME_TUTORIAL_BG;
 	m_apPerfomUi[TYPE::TYPE_NAME].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
-	// 拡大率設定
-	m_apPerfomUi[TYPE::TYPE_NAME].pScal = new SCALING;
-	m_apPerfomUi[TYPE::TYPE_NAME].pScal->Set(seting.size, 1.2f, 60);
-
 
 	// キー入力ボタン
-	seting.pos = D3DXVECTOR3(640.0f, 500.0f, 0.0f);
-	seting.size = D3DXVECTOR2(400.0f, 200.0f);
-	seting.nTextureID = CTexture::NAME_PleasePressButton000;
+	seting.pos = TUTORIALSKIP_POS;
+	seting.size = TUTORIALSKIP_SIZE;
+	seting.nTextureID = CTexture::NAME_TUTORIAL_TUTORIALSKIP;
 	m_apPerfomUi[TYPE::TYPE_KEYINFO].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 	m_apPerfomUi[TYPE::TYPE_KEYINFO].pC2dui->SetFadeAbility(N2Dui_fade(true, true, 60, -1));
-	// 拡大率設定
-	m_apPerfomUi[TYPE::TYPE_KEYINFO].pScal = new SCALING;
-	m_apPerfomUi[TYPE::TYPE_KEYINFO].pScal->Set(seting.size, 1.2f, 60);
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -92,10 +95,6 @@ void CTutorial::Update(void)
 	{
 		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 		{
-			// タイトル名をフェードする
-			m_apPerfomUi[TYPE::TYPE_NAME].pC2dui->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
-			// キーボタンをフェードする
-			m_apPerfomUi[TYPE::TYPE_KEYINFO].pC2dui->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
 
 			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_GAME);
 		}
