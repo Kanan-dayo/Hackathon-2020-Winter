@@ -25,6 +25,7 @@ CScene2D::CScene2D(CScene::PRIORITY priority) : CScene(priority)
 {
 	m_pTexture = nullptr;
 	m_TexAnimInfo = { 0,0,0,false,false };
+	m_bTexUpScroll = false;
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -564,6 +565,26 @@ void CScene2D::CalTurnBackUVMap(int nFrameMax, int & nFrame, int nNumWidht, int 
 	{	// フレーム数をクリアメント
 		nFrame++;
 	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// テクスチャースクロール処理
+//-------------------------------------------------------------------------------------------------------------
+void CScene2D::ScrollTex(float const & fTexY)
+{
+	// 頂点情報へのポインタ
+	CRenderer::VERTEX_2D *pVtx;
+
+	// 頂点データの範囲ロックし、頂点バッファへのポインタ取得
+	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
+
+	pVtx[0].tex.y = fTexY;
+	pVtx[1].tex.y = pVtx[0].tex.y;
+	pVtx[2].tex.y = fTexY + 1.0f;
+	pVtx[3].tex.y = pVtx[2].tex.y;
+
+	// 頂点データをアンロック
+	m_pVtxBuff->Unlock();
 }
 
 //-------------------------------------------------------------------------------------------------------------

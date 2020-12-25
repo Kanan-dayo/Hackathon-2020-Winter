@@ -1,0 +1,63 @@
+#==============================================================================
+#
+# [パーティクルエディター] スクリプトファイル [data/LOAD/ParticleInfo.txt]
+# Author : KOKI NISHIYAMA
+#
+#==============================================================================
+SCRIPT
+
+#==============================================================================
+# [0] tly1
+#==============================================================================
+OFFSET
+	# 色ランダム
+	SET_COLRAND
+		RED
+		GREEN
+		BLUE
+	ENDSET_COLRAND
+	# サイズランダム
+	SET_SIZERAND
+		SIZEX = 10 60
+		SIZEY = 10 60
+	ENDSET_SIZERAND
+	# 方向ランダム
+	SET_VECTORRAND
+		VECTORX = 20 -10
+		VECTORY = 20 -10
+		VECTORZ = 20 -10
+	ENDSET_VECTORRAND
+	# スピードランダム
+	SET_SPEEDRAND
+		MAX = 3
+		MIN = 5
+	ENDSET_SPEEDRAND
+	# 位置情報
+	POS = 0.0 0.0 0.0
+	# 色情報
+	COL = 1.0 1.0 1.0 1.0
+	COL_DESCREASE	# サイズ情報
+	SIZE = 0.0 0.0
+	SIZE_DESCREASE	# 回転情報
+	ROT = 0.0 0.0 0.0
+	# 方向情報
+	VECTOR = 0.0 0.0 0.0
+	# スピード情報
+	SPEED = 0.0
+	# ライフ情報
+	LIFE = 60
+	# フレーム情報
+	FRAME = 1
+	# 一度に出せる個数情報
+	NUMBER = 10
+	# テクスチャータイプ情報
+	TEXTYPE = 5
+	# エフェクトタイプ情報
+	EFFECTTYPE = 5
+	# パーティクルタイプ情報
+	PARTICLETYPE = 1
+	# ブレンドタイプ情報
+	BLEND = 3
+END_OFFSET
+
+END_SCRIPT
