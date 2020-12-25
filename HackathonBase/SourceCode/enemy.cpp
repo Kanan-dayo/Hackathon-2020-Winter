@@ -78,22 +78,22 @@ void CEnemy::Update(void)
 	{
 		D3DXVECTOR3* pPos = m_pImage[IMG_HEART]->GetPosition();
 
-		if (pPos->y <= 0.0f)
+		if (pPos->y <= 60.0f)
 		{
-			pPos->y = 0.0f;
+			pPos->y = 60.0f;
 		}
-		else if (pPos->y >= 720.0f)
+		else if (pPos->y >= 660.0f)
 		{
-			pPos->y = 720.0f;
+			pPos->y = 660.0f;
 		}
 
-		if (pPos->x <= 0.0f)
+		if (pPos->x <= 60.0f)
 		{
-			pPos->x = 0.0f;
+			pPos->x = 60.0f;
 		}
-		else if (pPos->x >= 1280.0f)
+		else if (pPos->x >= 1220.0f)
 		{
-			pPos->x = 1280.0f;
+			pPos->x = 1220.0f;
 		}
 
 		m_pImage[IMG_HEART]->SetPosition(*pPos);
@@ -347,8 +347,9 @@ void CEnemy::DamageProc(void)
 		}
 		SetState(STATE_NORMAL);
 	}
-	for (auto & itr : m_pImage)
-	{
-		itr->SetDisp(itr->GetDisp() ^ 1);
-	}
+	D3DXVECTOR3* pPos = m_pImage[IMG_HEART]->GetPosition();
+
+	*pPos += m_move;
+
+	m_pImage[IMG_HEART]->SetPosflag();
 }

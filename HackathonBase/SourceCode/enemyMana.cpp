@@ -13,6 +13,7 @@
 #include "manager.h"
 #include "game.h"
 #include "Scene2D.h"
+#include "sound.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // コンストラクタ
@@ -145,6 +146,7 @@ void CEnemyMana::Collision(void)
 				}
 				else if (pPlaye->GetState() == CPlayer::STATE_SMASH)
 				{
+					//
 					if (m_pStudent[nCnt]->DamageProc(vec, PlayerPos))
 					{
 						CGame::AddNumKill(1);
@@ -175,10 +177,14 @@ void CEnemyMana::Collision(void)
 				}
 				else if (pPlaye->GetState() == CPlayer::STATE_SMASH)
 				{
-					if (m_pCouple[nCnt]->DamageProc(vec, PlayerPos))
-					{
+					VEC3 move;
+					move.z = 0.0f;
+					move.x = sinf(fRadian) * 50.0f;
+					move.y = cosf(fRadian) * 50.0f;
+					if (m_pCouple[nCnt]->DamageProc(move, PlayerPos))
+					{//
 						CGame::AddNumKill(1);
-						CGame::AddTime(3);
+						CGame::AddTime(2);
 					}
 				}
 			}
@@ -205,11 +211,15 @@ void CEnemyMana::Collision(void)
 					m_pNewLywed[nCnt]->GetImage(CEnemy::IMG_HEART)->SetPosflag();
 				}
 				else if (pPlaye->GetState() == CPlayer::STATE_SMASH)
-				{
-					if (m_pNewLywed[nCnt]->DamageProc(vec, PlayerPos))
+				{//
+					VEC3 move;
+					move.z = 0.0f;
+					move.x = sinf(fRadian) * 50.0f;
+					move.y = cosf(fRadian) * 50.0f;
+					if (m_pNewLywed[nCnt]->DamageProc(move, PlayerPos))
 					{
 						CGame::AddNumKill(1);
-						CGame::AddTime(10);
+						CGame::AddTime(5);
 					}
 				}
 			}
