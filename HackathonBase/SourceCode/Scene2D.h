@@ -126,6 +126,9 @@ public:
 	inline void             UnsetPosflag(void) { Mlf_bit_clear(m_flagbits.mask, E_F_POS); }									// 位置フラグを外す
 	inline void             UnsetTexflag(void) { Mlf_bit_clear(m_flagbits.mask, E_F_TEX); }									// テクスチャフラグを外す
 	inline void             UnsetColflag(void) { Mlf_bit_clear(m_flagbits.mask, E_F_COL); }									// カラーフラグを外す
+
+	// スクロール処理
+	void ScrollTex(float const & fTexY);
 protected:
 	/* -- メンバ関数 -- */
 	HRESULT                 MakeVatex(LPDIRECT3DDEVICE9 pDevice);					// 頂点の作成

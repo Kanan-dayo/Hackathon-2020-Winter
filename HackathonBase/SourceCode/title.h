@@ -91,8 +91,10 @@ public:
 	void Draw(void);					// 描画
 
 private:
-
+	// 背景スクロール処理
+	void Update_BGScroll(void);
 	PERFORM2DUI m_apPerfomUi[TYPE::TYPE_MAX];	// ２DUIポインタ
+	float m_fBgTexY;								// 背景テクスチャーy
 };
 
 #endif

@@ -25,7 +25,7 @@
 #include "game.h"
 #include "ranking.h"
 #include "tutorial.h"
-
+#include "3Dparticle.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
@@ -101,6 +101,8 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 	// テクスチャの読み込み
 	CTexture::Load();
+	// パーティクルの読み込み
+	C3DParticle::Load();
 	// モデルの読み込み
 	//CModel::Load();
 	return S_OK;
@@ -116,6 +118,8 @@ void CManager::Uninit(void)
 	//CModel::Unload();
 	// テクスチャの開放
 	CTexture::Unload();
+	// パーティクルの読み込み
+	C3DParticle::Load();
 #ifdef _DEBUG
 	// デバッグの終了処理
 	m_DebugProc.Uninit();
@@ -233,7 +237,7 @@ void CManager::SetFPS(int fps)
 void CManager::SetHash(void)
 {
 	// 設定用キー
-	char SetingKey[FILE_MAX][16] = 
+	char SetingKey[FILE_MAX][16] =
 	{
 		{ "SOUND" },
 		{ "TITLEUI" },
