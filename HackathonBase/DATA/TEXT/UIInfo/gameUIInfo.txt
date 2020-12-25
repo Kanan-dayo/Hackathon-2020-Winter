@@ -15,4 +15,19 @@ Index = 2
 pos = 215 75
 size = 100 50
 
+// レディ
+Index = 3
+pos = 640 400
+size = 1000 500
+
+// ゴー
+Index = 4
+pos = 640 400
+size = 800 500
+
+// フィニッシュ
+Index = 5
+pos = 640 400
+size = 1200 500
+
 END_SCRIPT

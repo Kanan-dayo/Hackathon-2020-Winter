@@ -16,12 +16,17 @@
 #include "fade.h"
 #include "enemyMana.h"
 #include "NumericString.h"
+#include "result.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
 //-------------------------------------------------------------------------------------------------------------
 #define LINK_GAMEUIINFO	("DATA/TEXT/UIInfo/gameUIInfo.txt")		// UI情報のあるテキストファイル
 #define TIME_DEFAULT	(60)									// 最初のタイム
+
+#define TIME_READY		(40)
+#define TIME_GO			(40)
+#define TIME_FINISH		(40)
 
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
@@ -131,7 +136,7 @@ void CGame::Init(void)
 
 	// 敵マネージャーの生成
 	m_pEnemyMana = CEnemyMana::Create();
-	m_mode = MODE_NONE;
+	m_mode = MODE_BEGIN;
 	m_nCntMode = ML_INT_UNSET;
 
 	m_pPlayer = CPlayer::Create(m_InitPosPlayer, m_InitSizePlayer);
@@ -155,8 +160,15 @@ void CGame::Uninit(void)
 //-------------------------------------------------------------------------------------------------------------
 void CGame::Update(void)
 {
-	// タイマーの更新
-	UpdateTimer();
+	// モード毎の処理
+	switch (m_mode)
+	{
+	case MODE_BEGIN:	ModeBegin();	break;
+	case MODE_READY:	ModeReady();	break;
+	case MODE_GO:		ModeGo();		break;
+	case MODE_NORMAL:	ModeNormal();	break;
+	case MODE_FINISH:	ModeFinish();	break;
+	}
 	// モードの遷移
 	ModeTrans();
 	// マネージャーの更新
@@ -182,9 +194,6 @@ void CGame::CreateGameUI(void)
 	seting.bDisp = true;
 	seting.col = ML_D3DXCOR_SET;
 	seting.fRotation = ML_FLOAT_UNSET;
-	set.bDisp = true;
-	set.col = ML_D3DXCOR_SET;
-	set.fRotation = ML_FLOAT_UNSET;
 
 	// ペア数
 	seting.nTextureID = CTexture::NAME_PAIR;
@@ -210,6 +219,10 @@ void CGame::CreateGameUI(void)
 	seting.size = m_sizeUI[GAMEUI_TIMER];
 	m_pGameUI[GAMEUI_TIMER] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 
+	set.bDisp = false;
+	set.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+	set.fRotation = ML_FLOAT_UNSET;
+
 	// レディ
 	set.nTextureID = CTexture::NAME_READY;
 	set.pos = m_posUI[GAMEUI_READY];
@@ -234,7 +247,7 @@ void CGame::CreateGameUI(void)
 //-------------------------------------------------------------------------------------------------------------
 void CGame::ModeTrans(void)
 {
-	if (m_nCntTime <= 0)
+	if (m_mode == MODE_END)
 	{
 		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 		{
@@ -310,6 +323,101 @@ void CGame::UpdateTimer(void)
 		// タイマーの数字を更新
 		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->SetValue(m_nCntTime);
 		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->UpdateNumber();
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// 開始時
+//-------------------------------------------------------------------------------------------------------------
+void CGame::ModeBegin(void)
+{
+	// 時間経過で次へ
+	m_nCntMode++;
+	if (m_nCntMode >= 20)
+	{
+		m_nCntMode = 0;
+		m_mode = MODE_READY;
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// レディ時
+//-------------------------------------------------------------------------------------------------------------
+void CGame::ModeReady(void)
+{
+	if (m_nCntMode == 0)
+		m_pGameUI[GAMEUI_READY]->GetImage().pImage->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+
+	// 時間経過で次へ
+	m_nCntMode++;
+	if (m_nCntMode >= TIME_READY)
+	{
+		m_nCntMode = 0;
+		m_mode = MODE_GO;
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// ゴー時
+//-------------------------------------------------------------------------------------------------------------
+void CGame::ModeGo(void)
+{
+	if (m_nCntMode == 0)
+	{
+		m_pGameUI[GAMEUI_READY]->GetImage().pImage->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_pGameUI[GAMEUI_GO]->GetImage().pImage->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+	}
+
+	// 時間経過で次へ
+	m_nCntMode++;
+	if (m_nCntMode >= TIME_GO)
+	{
+		m_nCntMode = 0;
+		m_mode = MODE_NORMAL;
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// 通常時
+//-------------------------------------------------------------------------------------------------------------
+void CGame::ModeNormal(void)
+{
+	// 最初だけUIを消す
+	if (m_nCntMode == 0)
+	{
+		m_pGameUI[GAMEUI_GO]->GetImage().pImage->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f));
+		m_nCntMode++;
+	}
+
+	// タイマーの更新
+	UpdateTimer();
+
+	// カウント0で次へ
+	if (m_nCntTime == 0)
+	{
+		m_nCntMode = 0;
+		m_mode = MODE_FINISH;
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// フィニッシュ時
+//-------------------------------------------------------------------------------------------------------------
+void CGame::ModeFinish(void)
+{
+	if (m_nCntMode == 0)
+	{
+		m_pGameUI[GAMEUI_FINISH]->GetImage().pImage->SetColor(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+	}
+
+	// 時間経過で次へ
+	m_nCntMode++;
+	if (m_nCntMode >= TIME_FINISH)
+	{
+		m_nCntMode = 0;
+		m_mode = MODE_END;
+		// 撃破数を保存
+		CResult::SetNumPair(m_nNumKill);
 	}
 }
 

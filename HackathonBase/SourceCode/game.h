@@ -24,10 +24,14 @@ public:
 
 	typedef enum
 	{
-		MODE_NONE = -1,
-		MODE_NORMAL,
-		MODE_START,
-		MODE_FINISH,
+		MODE_NONE = -1,	// 何もない
+		MODE_BEGIN,		// 開始時
+		MODE_READY,		// レディ
+		MODE_GO,		// ゴー
+		MODE_NORMAL,	// 通常
+		MODE_START,		//
+		MODE_FINISH,	// フィニッシュ
+		MODE_END,		// ゲーム終了
 	} MODE;
 
 	typedef enum
@@ -35,9 +39,9 @@ public:
 		GAMEUI_TIMER,	// タイマーUI
 		GAMEUI_SCORE,	// スコアUI
 		GAMEUI_PAIR,	// 〇ペアUI
-		GAMEUI_READY,
-		GAMEUI_GO,
-		GAMEUI_FINISH,
+		GAMEUI_READY,	// レディ
+		GAMEUI_GO,		// ゴー
+		GAMEUI_FINISH,	// フィニッシュ
 		GAMEUI_MAX
 	} GAMEUI;
 
@@ -60,6 +64,11 @@ private:
 	void ModeTrans(void);			// モード遷移
 	void SetMode(MODE mode);		// モードの設定
 	void UpdateTimer(void);			// タイマーの更新
+	void ModeBegin(void);			// 開始時
+	void ModeReady(void);			// レディ時
+	void ModeGo(void);				// ゴー時
+	void ModeNormal(void);			// 通常時
+	void ModeFinish(void);			// フィニッシュ時
 
 	static CONST D3DXVECTOR3 m_InitPosPlayer;
 	static CONST D3DXVECTOR2 m_InitSizePlayer;
