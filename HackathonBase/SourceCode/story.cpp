@@ -23,16 +23,18 @@
 #define SCALPERSENT			(0.3f)	// 拡大率
 
 // ページ用
-#define STORY_1_POS			(D3DXVECTOR3(800.0f, 300.0f, 0.0f))		// ストーリー1位置
-#define STORY_2_POS			(D3DXVECTOR3(800.0f, 300.0f, 0.0f))		// ストーリー2位置
+#define STORY_1_POS			(D3DXVECTOR3(640.0f, 360.0f, 0.0f))		// ストーリー1位置
+#define STORY_2_POS			(D3DXVECTOR3(640.0f, 360.0f, 0.0f))		// ストーリー2位置
 
-#define STORY_1_SIZE		(D3DXVECTOR2(800.0f, 300.0f))	// ストーリー1_サイズ
-#define STORY_2_SIZE		(D3DXVECTOR2(800.0f, 300.0f))	// ストーリー2_サイズ
+#define STORY_1_SIZE		(D3DXVECTOR2(1280.0f, 720.0f))	// ストーリー1_サイズ
+#define STORY_2_SIZE		(D3DXVECTOR2(1280.0f, 720.0f))	// ストーリー2_サイズ
 
 // サンタ用
-#define STORY_SANTA_POS			(D3DXVECTOR3(800.0f, 600.0f, 0.0f))	// ストーリープレス位置
+#define SANTA_IKARI_POS (D3DXVECTOR3(230.0f, 400.0f, 0.0f))
+#define SANTA_IKARI_SIZE (D3DXVECTOR2(385.0f, 450.0f))
 
-#define STORY_SANTA_SIZE		(D3DXVECTOR2(100.0f, 100.0f))	// ストーリープレス_サイズ
+#define SANTA_NORMAL_POS (D3DXVECTOR3(210.0f, 400.0f, 0.0f))
+#define SANTA_NORMAL_SIZE (D3DXVECTOR2(321.0f, 410.0f))
 
 #define STORY_SANTA_MOVEMENT	(5)							// 微振動
 
@@ -53,7 +55,7 @@ void CStory::Init(void)
 {
 	// 初期化処理
 	Init_PerfomUi(TYPE::TYPE_MAX, m_apPerfomUi);
-	m_nPushButton = TYPE::TYPE_STORYBG;
+	m_nPushButton = -1;
 	for (int nCntUi = 0; nCntUi < TYPE::TYPE_MAX; nCntUi++)
 	{
 		m_apPerfomUi[nCntUi].pC2dui = NULL;
@@ -69,40 +71,38 @@ void CStory::Init(void)
 	seting.nValue = 1000;
 	seting.mask.unMask = N2Dui_mask::E_M_FLASHING | N2Dui_mask::E_M_FADE;
 
-
-	// ストーリー背景
-	seting.pos = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
-	seting.size = D3DXVECTOR2(1280.0f, 720.0f);
-	seting.nTextureID = CTexture::NAME_TITLE_BG;
-	m_apPerfomUi[TYPE::TYPE_STORYBG].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
-	m_apPerfomUi[TYPE::TYPE_STORYBG].bMove = false;
-
-
 	// ストーリー2
 	seting.pos = STORY_2_POS;
 	seting.size = STORY_2_SIZE;
-	seting.nTextureID = CTexture::NAME_RANKING;
+	seting.nTextureID = CTexture::NAME_STORY_SLID2;
 	m_apPerfomUi[TYPE::TYPE_STORY_2].pC2dui = C2DUi::Create(seting,CScene::PRIORITY_BUI);
 	m_apPerfomUi[TYPE::TYPE_STORY_2].bMove = false;
 	m_apPerfomUi[TYPE::TYPE_STORY_2].pScal = new SCALING;
 	m_apPerfomUi[TYPE::TYPE_STORY_2].pScal->Set(seting.size, SCALPERSENT);
 
+
+	// サンタ怒り
+	seting.pos = SANTA_IKARI_POS;
+	seting.size = SANTA_IKARI_SIZE;
+	seting.nTextureID = CTexture::NAME_STORY_SANTAIKARI;
+	m_apPerfomUi[TYPE::TYPE_STORY_SANTA_IKARI].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_apPerfomUi[TYPE::TYPE_STORY_SANTA_IKARI].bMove = false;
+
 	// ストーリー1
 	seting.pos = STORY_1_POS;
 	seting.size = STORY_1_SIZE;
-	seting.nTextureID = CTexture::NAME_TITLE_BG;
+	seting.nTextureID = CTexture::NAME_STORY_SLID1;
 	m_apPerfomUi[TYPE::TYPE_STORY_1].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 	m_apPerfomUi[TYPE::TYPE_STORY_1].bMove = false;
 	m_apPerfomUi[TYPE::TYPE_STORY_1].pScal = new SCALING;
 	m_apPerfomUi[TYPE::TYPE_STORY_1].pScal->Set(seting.size, SCALPERSENT);
 
-
-	// ストーリープレス
-	seting.pos = STORY_SANTA_POS;
-	seting.size = STORY_SANTA_SIZE;
-	seting.nTextureID = CTexture::NAME_PLAYER;
-	m_apPerfomUi[TYPE::TYPE_STORY_SANTA].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
-	m_apPerfomUi[TYPE::TYPE_STORY_SANTA].bMove = true;
+	// サンタ
+	seting.pos = SANTA_NORMAL_POS;
+	seting.size = SANTA_NORMAL_SIZE;
+	seting.nTextureID = CTexture::NAME_STORY_SANTA;
+	m_apPerfomUi[TYPE::TYPE_STORY_SANTA_NORMAL].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_apPerfomUi[TYPE::TYPE_STORY_SANTA_NORMAL].bMove = false;
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -136,18 +136,21 @@ void CStory::Update(void)
 	{
 		// 押した回数アップ
 		m_nPushButton++;
-		if (m_nPushButton >= TYPE::TYPE_STORY_1 && m_nPushButton <= TYPE::TYPE_STORY_2)
+		if (m_nPushButton == 0)
 		{
-			m_apPerfomUi[m_nPushButton].bMove = true;
+			m_apPerfomUi[TYPE::TYPE_STORY_1].bMove = true;
+			m_apPerfomUi[TYPE::TYPE_STORY_SANTA_NORMAL].bMove = true;
 		}
-
-		if (m_nPushButton > TYPE::TYPE_STORY_2)
+		else if(m_nPushButton == 1)
 		{
+			m_apPerfomUi[TYPE::TYPE_STORY_2].bMove = true;
+			m_apPerfomUi[TYPE::TYPE_STORY_SANTA_IKARI].bMove = true;
 			if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 			{
 				CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_TUTORIAL);
 			}
 		}
+
 	}
 }
 
@@ -163,27 +166,57 @@ void CStory::Draw(void)
 //-------------------------------------------------------------------------------------------------------------
 void CStory::Update_UiMove(int const & nUi)
 {
-	if (!m_apPerfomUi[nUi].pC2dui ||
-		!m_apPerfomUi[nUi].bMove) return;
+	if (!m_apPerfomUi[nUi].pC2dui) return;
 
 	C2DUi * p2Dui = m_apPerfomUi[nUi].pC2dui;
 
 	// サンタ用
-	if (nUi == TYPE::TYPE_STORY_SANTA)
+	if (nUi == TYPE::TYPE_STORY_SANTA_NORMAL)
 	{
 		// UIの移動処理
 		D3DXVECTOR3 * pos = p2Dui->GetImage().pImage->GetPosition();
 
-		pos->x = STORY_SANTA_POS.x - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
-		pos->y = STORY_SANTA_POS.y - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
+		pos->x = SANTA_NORMAL_POS.x - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
+		pos->y = SANTA_NORMAL_POS.y - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
+
+		// フェード処理
+		if (m_apPerfomUi[nUi].bMove)
+		{
+			// タイトル名をフェードする
+			m_apPerfomUi[nUi].pC2dui->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
+		}
+
 		// 頂点座標のフラグ設定
 		p2Dui->GetImage().pImage->SetPosflag();
 		// フレームカウントアップ
 		m_nCntFram++;
 	}
+	// サンタ用
+	else if (nUi == TYPE::TYPE_STORY_SANTA_IKARI)
+	{
+		// UIの移動処理
+		D3DXVECTOR3 * pos = p2Dui->GetImage().pImage->GetPosition();
+
+		pos->x = SANTA_IKARI_POS.x - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
+		pos->y = SANTA_IKARI_POS.y - STORY_SANTA_MOVEMENT + rand() % STORY_SANTA_MOVEMENT * 2;
+
+		// フェード処理
+		if (m_apPerfomUi[nUi].bMove)
+		{
+			// タイトル名をフェードする
+			m_apPerfomUi[nUi].pC2dui->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
+		}
+
+		// 頂点座標のフラグ設定
+		p2Dui->GetImage().pImage->SetPosflag();
+		// フレームカウントアップ
+		m_nCntFram++;
+	}
+
 	// ページ用
 	else
 	{
+		if (!m_apPerfomUi[nUi].bMove) return;
 		// 頂点座標の回転処理
 		float fRotation = p2Dui->GetImage().pImage->GetRotation();
 		fRotation += ROTATIONSPEED;
