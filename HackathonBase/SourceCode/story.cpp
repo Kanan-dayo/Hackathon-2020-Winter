@@ -14,6 +14,10 @@
 #include "keyboard.h"
 #include "Scene2D.h"
 
+
+#include "2Deffect.h"
+#include "3Dparticle.h"
+
 //-------------------------------------------------------------------------------------------------------------
 // ƒ}ƒNƒ’è‹`
 //-------------------------------------------------------------------------------------------------------------
@@ -145,6 +149,9 @@ void CStory::Update(void)
 		{
 			m_apPerfomUi[TYPE::TYPE_STORY_2].bMove = true;
 			m_apPerfomUi[TYPE::TYPE_STORY_SANTA_IKARI].bMove = true;
+		}
+		if (m_nPushButton >= 1)
+		{
 			if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 			{
 				CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_TUTORIAL);
