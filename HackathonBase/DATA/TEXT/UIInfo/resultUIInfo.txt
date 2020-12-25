@@ -20,4 +20,9 @@ Index = 3
 pos = 1140 360
 size = 200 200
 
+// îwåi
+Index = 4
+pos = 640 360
+size = 1280 720
+
 END_SCRIPT

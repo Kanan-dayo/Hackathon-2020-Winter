@@ -21,6 +21,8 @@
 #define LINK_RANKING		("DATA/SAVEDATA/ranking.txt")		// ランキングのファイル
 #define POS_RANLING_TITLE	(D3DXVECTOR3(640.0f, 120.0f, 0.0f))	// ランキングの座標
 #define SIZE_RANLING_TITLE	(D3DXVECTOR2(400.0f, 200.0f))		// ランキングのサイズ
+#define POS_RANLING_BG		(D3DXVECTOR3(640.0f, 360.0f, 0.0f))	// 背景の座標
+#define SIZE_RANLING_BG		(D3DXVECTOR2(1280.0f, 720.0f))		// 背景のサイズ
 
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
@@ -192,16 +194,22 @@ void CRanking::Init(void)
 	LoadRank();
 
 	// 初期設定
-	N2Dui_seting setTitle;
-	setTitle.bDisp = true;
-	setTitle.col = ML_D3DXCOR_SET;
-	setTitle.fRotation = ML_FLOAT_UNSET;
+	N2Dui_seting set;
+	set.bDisp = true;
+	set.col = ML_D3DXCOR_SET;
+	set.fRotation = ML_FLOAT_UNSET;
 
 	// 順位
-	setTitle.nTextureID = CTexture::NAME_RANKING;
-	setTitle.pos = POS_RANLING_TITLE;
-	setTitle.size = SIZE_RANLING_TITLE;
-	m_pUIRaking = C2DUi::Create(setTitle, CScene::PRIORITY_BUI);
+	set.nTextureID = CTexture::NAME_RESULT_BG;
+	set.pos = POS_RANLING_BG;
+	set.size = SIZE_RANLING_BG;
+	m_pUIBG = C2DUi::Create(set, CScene::PRIORITY_BUI);
+
+	// 順位
+	set.nTextureID = CTexture::NAME_RANKING;
+	set.pos = POS_RANLING_TITLE;
+	set.size = SIZE_RANLING_TITLE;
+	m_pUIRaking = C2DUi::Create(set, CScene::PRIORITY_BUI);
 
 	// スコアをソート
 	SortScore();
