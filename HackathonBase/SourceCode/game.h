@@ -17,6 +17,7 @@
 //-------------------------------------------------------------------------------------------------------------
 class C2DUi;
 class CPlayer;
+class CEnemyMana;
 class CGame : public CMode
 {
 public:
@@ -45,10 +46,9 @@ public:
 	void Uninit(void);				// 終了
 	void Update(void);				// 更新
 	void Draw(void);				// 描画
-
-	C2DUi *Get2dui(void) { return m_pC2dui; }
+	C2DUi *GetGameUI(UINT nIndex) { return m_pGameUI[nIndex]; }
 	CPlayer *GetPlayer(void) { return m_pPlayer; }
-
+	CEnemyMana * GetEnemyMana(void) { return m_pEnemyMana; }
 private:
 	void CreateGameUI(void);		// ゲームUIの生成
 	void ModeTrans(void);			// モード遷移
@@ -56,7 +56,7 @@ private:
 
 	static CONST D3DXVECTOR3 m_InitPosPlayer;
 	static CONST D3DXVECTOR2 m_InitSizePlayer;
-	C2DUi*   m_pC2dui;				// ２DUIポインタ
+	CEnemyMana * m_pEnemyMana;		// 敵マネージャーのポインタ
 	C2DUi*	 m_pGameUI[GAMEUI_MAX];	// ゲームUIポインタ
 	CPlayer* m_pPlayer;				// プレイヤーのポインタ[
 	MODE     m_mode;				// モード
