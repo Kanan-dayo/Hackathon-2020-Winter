@@ -26,6 +26,7 @@
 #include "ranking.h"
 #include "tutorial.h"
 #include "3Dparticle.h"
+#include "XGamepad.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
@@ -34,6 +35,7 @@ CRenderer		CManager::m_Renderer                       = ML_INITSTRUCT_WITHCONST;
 Ckeyboard		CManager::m_Keyboard                       = ML_INITSTRUCT_WITHCONST;	// キーボードのポインタ
 CMouse			CManager::m_Mouse                          = ML_INITSTRUCT_WITHCONST;	// マウスのポインタ
 CGamepad		CManager::m_Gamepad                        = ML_INITSTRUCT_WITHCONST;	// ゲームパッドのポインタ
+CXGamepad		CManager::m_XGamePad                       = ML_INITSTRUCT_WITHCONST;
 CSound			CManager::m_Sound                          = ML_INITSTRUCT_WITHCONST;	// サウンドのポインタ
 CDebugProc		CManager::m_DebugProc                      = ML_INITSTRUCT_WITHCONST;	// デバッグ処理のポインタ
 CCamera			CManager::m_Camera                         = ML_INITSTRUCT_WITHCONST;	// カメラのポインタ
@@ -86,7 +88,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 
 	// ゲームパッドの初期化
 	m_Gamepad.Init(hInstance, hWnd);
-
+	m_XGamePad.Init(hInstance, hWnd);
 	// サウンドの初期化
 	m_Sound.InitSound(hWnd);
 	// カメラの初期化
@@ -131,6 +133,7 @@ void CManager::Uninit(void)
 	m_Camera.Uninit();
 	// サウンドの終了処理
 	m_Sound.UninitSound();
+	m_XGamePad.Uninit();
 	// ゲームパッドの終了処理
 	m_Gamepad.Uninit();
 	// マウスの終了処理
@@ -160,6 +163,7 @@ void CManager::Update(void)
 	m_Mouse.Update();
 	// ゲームパッドの更新処理
 	m_Gamepad.Update();
+	m_XGamePad.Update();
 	// カメラの更新処理
 	m_Camera.Update();
 	// ライトの更新処理
