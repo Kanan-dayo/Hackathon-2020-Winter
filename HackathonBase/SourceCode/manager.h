@@ -32,6 +32,7 @@ class CRenderer;
 class CCamera;
 class CLight;
 class CGamepad;
+class CXGamepad;
 class CHash;
 class CMode;
 class CManager
@@ -82,6 +83,7 @@ public:
 	static CRenderer& GetRenderer(void)           { return m_Renderer; }		// レンダラーの取得
 	static Ckeyboard& GetKeyboard(void)           { return m_Keyboard; }		// キーボードの取得
 	static CGamepad&  GetGamepad(void)            { return m_Gamepad; }			// ゲームパッドの取得
+	static CXGamepad& GetXGamepad(void)            { return m_XGamePad; }
 	static CMouse&    GetMouse(void)              { return m_Mouse; }			// マウスの取得
 	static CCamera&   GetCamera(void)             { return m_Camera; }			// カメラの取得
 	static int&       GetTotalScore(void)         { return m_nMyScore; }		// トータルスコアの取得
@@ -98,6 +100,7 @@ private:
 	static Ckeyboard	m_Keyboard;						// キーボードのポインタ
 	static CMouse		m_Mouse;							// マウスのポインタ
 	static CGamepad		m_Gamepad;						// ゲームパッドのポインタ
+	static CXGamepad    m_XGamePad;							// Xinpuのゲームパッド
 	static CSound		m_Sound;							// サウンドのポインタ
 	static CDebugProc	m_DebugProc;						// デバッグ処理のポインタ
 	static CCamera		m_Camera;							// カメラのポインタ

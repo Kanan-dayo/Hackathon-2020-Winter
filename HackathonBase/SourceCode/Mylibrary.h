@@ -182,6 +182,7 @@ using namespace std;
 #define Mlf_LtSet(o ,src)				if(o < src) {o = src;}								// src‚æ‚èo‚ª¬‚³‚¢‚Æ‚«Ý’è‚·‚é
 
 #define MLK_CASE(t)     break;case (t):
+#define MLK_CASES(t)    case (t):					// •¡”‚Ìê‡
 #define MLK_DEFAULT     break;default
 
 //-------------------------------------------------------------------------------------------------------------

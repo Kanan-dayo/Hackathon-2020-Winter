@@ -26,11 +26,12 @@ public:
 
 	typedef enum
 	{
-		STATE_NONE = -1,
-		STATE_NORMAL,
-		STATE_CHARGE,
-		STATE_SMASH,
-		STATE_MAX
+		STATE_NONE = -1,		// 無し
+		STATE_NORMAL,			// 通常
+		STATE_CHARGE,			// チャージ
+		STATE_SMASH,			// スマッシュ
+		STATE_RECOIL,			// 反動
+		STATE_MAX				// 最大数
 	}STATE; 
 
 	// 画像
@@ -62,11 +63,14 @@ public:
 	void                 Draw(void);											// 描画
 	void                 InitImage(D3DXVECTOR3 &pos, D3DXVECTOR2 &size);		// 画像の初期化
 
+	void                 SetState(CONST STATE state);							// 状態の設定
+
 	inline CScene2D*     GetImage(UINT nIndex) { return m_pImage[nIndex]; }		// 画像の取得
 
 protected:
-	void NormalProc(void);
-	void SmashProc(void);
+	void NormalProc(void);														// 通常処理
+	void SmashProc(void);														// スマッシュ処理
+	void RecoilProc(void);														// スマッシュ処理
 	bool GamepadOperationProc(void);											// ゲームパッド操作処理
 	bool KeyboardOperationProc(void);											// キーボード操作処理
 	void BodyAction(void);														// 体の行動処理
@@ -79,6 +83,8 @@ protected:
 	float                m_fRotDest;											// 回転の到達値
 	float                m_fSpeed;												// 速度
 	STATE                m_state;												// 状態
+	UINT                 m_nCntState;											// 状態カウント
+	bool                 m_bGamePadcharge;
 };
 
 
