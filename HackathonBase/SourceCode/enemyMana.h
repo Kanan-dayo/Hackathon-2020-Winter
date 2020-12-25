@@ -15,13 +15,14 @@
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
 //-------------------------------------------------------------------------------------------------------------
-#define COUPLE_MAX		(9)
-#define NEWLYWED_MAX	(2)
-#define STUDENT_MAX		(30)
+#define ENEMYMANA_COUPLE_MAX		(9)
+#define ENEMYMANA_NEWLYWED_MAX		(2)
+#define ENEMYMANA_STUDENT_MAX		(20)
 
 //-------------------------------------------------------------------------------------------------------------
 // クラス定義
 //-------------------------------------------------------------------------------------------------------------
+class CEnemy;
 class CEnemyMana
 {
 public:
@@ -35,6 +36,15 @@ public:
 	void Draw(void);						// 描画
 
 private:
+
+	void Collision(void);					// 衝突
+	void StudentAppearance(void);			// 学生の出現
+	void NewlywedAppearance(void);			// 新婚出現
+	void CoupleAppearance(void);			// 夫婦の出現
+
+	vector<CEnemy*> m_pStudent;				// 学生ポインタ
+	vector<CEnemy*> m_pCouple;				// 夫婦ポインタ
+	vector<CEnemy*> m_pNewLywed;			// 新婚ポインタ
 
 };
 

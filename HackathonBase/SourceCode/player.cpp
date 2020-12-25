@@ -23,8 +23,8 @@
 #define PLAYER_FRAME_SIZE_X     (200.0f)						// 枠のサイズX
 #define PLAYER_ROTVALUECOEFFI	(0.1f)							// 回転値係数
 #define PLAYER_SPEEDLIMIT		(3.0f)							// 速度制限
-#define PLAYER_CHARGE			(2.0f)							// 速度制限
-#define PLAYER_SMASHSPEED		(250.0f)						// スマッシュ速度
+#define PLAYER_CHARGE			(8.0f)							// 速度制限
+#define PLAYER_SMASHSPEED		(100.0f)						// スマッシュ速度
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
 //-------------------------------------------------------------------------------------------------------------
@@ -72,6 +72,7 @@ void CPlayer::Init(void)
 //-------------------------------------------------------------------------------------------------------------
 void CPlayer::Uninit(void)
 {
+	m_pImage.clear();
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -186,7 +187,7 @@ void CPlayer::SmashProc(void)
 {
 	D3DXVECTOR3* pPos = m_pImage[IMG_BODY]->GetPosition();
 
-	CMylibrary::SlowingMove(&m_fSpeed, 0.2f);
+	CMylibrary::SlowingMove(&m_fSpeed, 0.1f);
 
 	if (m_fSpeed < PLAYER_SPEEDLIMIT)
 	{
