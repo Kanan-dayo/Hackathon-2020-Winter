@@ -147,6 +147,8 @@ void CEnemyMana::Collision(void)
 				else if (pPlaye->GetState() == CPlayer::STATE_SMASH)
 				{
 					//
+					CManager::GetSound().PlaySound(CSound::SOUND_LABEL_SE_ENEMYDAMAGE);
+
 					if (m_pStudent[nCnt]->DamageProc(vec, PlayerPos))
 					{
 						CGame::AddNumKill(1);
@@ -183,6 +185,7 @@ void CEnemyMana::Collision(void)
 					move.y = cosf(fRadian) * 50.0f;
 					if (m_pCouple[nCnt]->DamageProc(move, PlayerPos))
 					{//
+						CManager::GetSound().PlaySound(CSound::SOUND_LABEL_SE_ENEMYDAMAGE);
 						CGame::AddNumKill(1);
 						CGame::AddTime(2);
 					}
@@ -212,6 +215,7 @@ void CEnemyMana::Collision(void)
 				}
 				else if (pPlaye->GetState() == CPlayer::STATE_SMASH)
 				{//
+					CManager::GetSound().PlaySound(CSound::SOUND_LABEL_SE_ENEMYDAMAGE);
 					VEC3 move;
 					move.z = 0.0f;
 					move.x = sinf(fRadian) * 50.0f;
