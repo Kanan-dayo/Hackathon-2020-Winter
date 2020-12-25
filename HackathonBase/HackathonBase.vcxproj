@@ -167,6 +167,8 @@
     <ClCompile Include="SourceCode\camera.cpp" />
     <ClCompile Include="SourceCode\DebugProc.cpp" />
     <ClCompile Include="SourceCode\effect.cpp" />
+    <ClCompile Include="SourceCode\enemy.cpp" />
+    <ClCompile Include="SourceCode\enemyMana.cpp" />
     <ClCompile Include="SourceCode\fade.cpp" />
     <ClCompile Include="SourceCode\game.cpp" />
     <ClCompile Include="SourceCode\gamepad.cpp" />
@@ -202,6 +204,8 @@
     <ClInclude Include="SourceCode\camera.h" />
     <ClInclude Include="SourceCode\DebugProc.h" />
     <ClInclude Include="SourceCode\effect.h" />
+    <ClInclude Include="SourceCode\enemy.h" />
+    <ClInclude Include="SourceCode\enemyMana.h" />
     <ClInclude Include="SourceCode\fade.h" />
     <ClInclude Include="SourceCode\game.h" />
     <ClInclude Include="SourceCode\gamepad.h" />

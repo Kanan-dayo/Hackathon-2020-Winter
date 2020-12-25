@@ -22,6 +22,9 @@
     <Filter Include="ソース ファイル\2DUI">
       <UniqueIdentifier>{7b1f9f99-e9b6-47c0-8699-3cc344d9f05c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\enemy">
+      <UniqueIdentifier>{ae221162-e763-4c15-9bac-522efae96782}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SourceCode\camera.cpp">
@@ -123,6 +126,12 @@
     <ClCompile Include="SourceCode\story.cpp">
       <Filter>ソース ファイル\mode</Filter>
     </ClCompile>
+    <ClCompile Include="SourceCode\enemy.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceCode\enemyMana.cpp">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SourceCode\camera.h">
@@ -223,6 +232,12 @@
     </ClInclude>
     <ClInclude Include="SourceCode\story.h">
       <Filter>ソース ファイル\mode</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\enemy.h">
+      <Filter>ソース ファイル\enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceCode\enemyMana.h">
+      <Filter>ソース ファイル\enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

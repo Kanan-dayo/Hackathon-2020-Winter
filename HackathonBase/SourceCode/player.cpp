@@ -87,11 +87,6 @@ void CPlayer::Update(void)
 	MLK_DEFAULT:break;
 	}
 
-
-
-
-
-
 	// ‰æ–Êˆ—
 
 	D3DXVECTOR3* pPos = m_pImage[IMG_BODY]->GetPosition();
@@ -177,6 +172,7 @@ void CPlayer::NormalProc(void)
 	}
 	else
 	{
+		CMylibrary::SlowingMove(&m_fSpeed, 0.05f);
 	}
 
 	// ‘Ì‚Ìs“®ˆ—
@@ -246,7 +242,8 @@ bool CPlayer::GamepadOperationProc(void)
 		bOperat = true;
 	}
 
-	if (Gamepad.GetPress(CXGamepad::JOYPADKEY_R2))
+	if (Gamepad.GetPress(CXGamepad::JOYPADKEY_R2) ||
+		Gamepad.GetPress(CXGamepad::JOYPADKEY_R1))
 	{
 		float fSizeX = m_pImage[IMG_GAGE]->GetSize()->x + PLAYER_CHARGE;
 		if (fSizeX > PLAYER_GAGE_SIZE_X)
@@ -269,17 +266,7 @@ bool CPlayer::GamepadOperationProc(void)
 	if (bOperat)
 	{
 		m_fRotDest = atan2f(direNor.x, direNor.y);
-		if (!m_bGamePadcharge) {
-			m_fSpeed += 0.05f;
-		}
-		else {
-			CMylibrary::SlowingMove(&m_fSpeed, 0.05f);
-
-		}
-	}
-	else
-	{
-		CMylibrary::SlowingMove(&m_fSpeed, 0.05f);
+		m_fSpeed += 0.05f;
 	}
 	return bOperat;
 }
@@ -338,17 +325,7 @@ bool CPlayer::KeyboardOperationProc(void)
 	if (bOperat)
 	{
 		m_fRotDest = atan2f(direNor.x, direNor.y);
-		if (!bCharge) {
-			m_fSpeed += 0.05f;
-		}
-		else {
-			CMylibrary::SlowingMove(&m_fSpeed, 0.05f);
-
-		}
-	}
-	else
-	{
-		CMylibrary::SlowingMove(&m_fSpeed, 0.05f);
+		m_fSpeed += 0.05f;
 	}
 
 
