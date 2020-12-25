@@ -25,6 +25,7 @@ public:
 		RESULT_TEXT,		// 破壊したペア数
 		RESULT_NUM,			// ペア数
 		RESULT_NUMPAIR,		// 〇ペア
+		RESULT_BG,			// 背景
 		RESULT_MAX
 	} RESULT_UI;
 

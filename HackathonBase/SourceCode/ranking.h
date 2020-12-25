@@ -64,6 +64,7 @@ private:
 
 	C2DUi *m_p2DUI[RANK_MAX][RANKING_MAX];					// ２DUIポインタ
 	C2DUi *m_pUIRaking;										// ランキングUI
+	C2DUi *m_pUIBG;											// 背景UI
 };
 
 #endif

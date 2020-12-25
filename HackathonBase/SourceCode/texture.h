@@ -34,6 +34,7 @@ public:
 		NAME_RESULT,					// リザルト
 		NAME_RESULT_TEXT,				// リザルトのテキスト
 		NAME_RESULT_NUMPAIR,			// リザルトの組数
+		NAME_RESULT_BG,					// BG
 
 		NAME_RANKING,					// ランキング
 		NAME_RANKING_1st,				// 1位

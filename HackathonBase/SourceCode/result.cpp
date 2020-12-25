@@ -119,6 +119,11 @@ void CResult::Init(void)
 	//pC2dui->SetFadeAbility(N2Dui_fade(true, true, 60, -1));
 	//pC2dui->SetFlashingAbility(N2Dui_flashing(true, 3));
 
+	seting.nTextureID = CTexture::NAME_RESULT_BG;
+	seting.pos = m_posUI[RESULT_BG];
+	seting.size = m_sizeUI[RESULT_BG];
+	m_p2DUI[RESULT_BG] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+
 	seting.nTextureID = CTexture::NAME_RESULT;
 	seting.pos = m_posUI[RESULT_TITLE];
 	seting.size = m_sizeUI[RESULT_TITLE];
