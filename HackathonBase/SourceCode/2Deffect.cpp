@@ -245,16 +245,16 @@ void C2DEffect::SetVartexSize(
 	else if (pEffect != NULL)
 	{
 		// ’¸“_‚ÌÝ’è
-		pVtx[0].pos = ORIGIN_POS + pEffect->pos;
+		pVtx[0].pos = ORIGIN_POS - pEffect->pos;
 		pVtx[0].pos.x += -sinf(BASEANGLE + pEffect->fAngle) * pEffect->size.x;
 		pVtx[0].pos.y += -cosf(BASEANGLE + pEffect->fAngle) * pEffect->size.y;
-		pVtx[1].pos = ORIGIN_POS + pEffect->pos;
+		pVtx[1].pos = ORIGIN_POS - pEffect->pos;
 		pVtx[1].pos.x += sinf(BASEANGLE - pEffect->fAngle) * pEffect->size.x;
 		pVtx[1].pos.y += -cosf(BASEANGLE - pEffect->fAngle) * pEffect->size.y;
-		pVtx[2].pos = ORIGIN_POS + pEffect->pos;
+		pVtx[2].pos = ORIGIN_POS - pEffect->pos;
 		pVtx[2].pos.x += -sinf(BASEANGLE - pEffect->fAngle) * pEffect->size.x;
 		pVtx[2].pos.y += cosf(BASEANGLE - pEffect->fAngle) * pEffect->size.y;
-		pVtx[3].pos = ORIGIN_POS + pEffect->pos;
+		pVtx[3].pos = ORIGIN_POS - pEffect->pos;
 		pVtx[3].pos.x += sinf(BASEANGLE + pEffect->fAngle) * pEffect->size.x;
 		pVtx[3].pos.y += cosf(BASEANGLE + pEffect->fAngle) * pEffect->size.y;
 	}

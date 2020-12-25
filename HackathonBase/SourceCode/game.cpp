@@ -17,6 +17,7 @@
 #include "enemyMana.h"
 #include "NumericString.h"
 #include "result.h"
+#include "2Deffect.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
@@ -129,6 +130,8 @@ void CGame::Init(void)
 	m_nCntFrame = 0;
 	m_nCntTime = TIME_DEFAULT;
 
+	// エフェクトの生成
+	C2DEffect::Create();
 	// UI情報のロード
 	LoadUIInfo();
 

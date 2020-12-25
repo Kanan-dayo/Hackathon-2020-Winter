@@ -14,6 +14,7 @@
 #include "game.h"
 #include "Scene2D.h"
 #include "sound.h"
+#include "3Dparticle.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // コンストラクタ
@@ -147,6 +148,7 @@ void CEnemyMana::Collision(void)
 				else if (pPlaye->GetState() == CPlayer::STATE_SMASH)
 				{
 					//
+					//C3DParticle::Create(C3DParticle::PARTICLE_ID_EXPLOSION, *EnemyPos, true);
 					CManager::GetSound().PlaySound(CSound::SOUND_LABEL_SE_ENEMYDAMAGE);
 
 					if (m_pStudent[nCnt]->DamageProc(vec, PlayerPos))
@@ -185,6 +187,9 @@ void CEnemyMana::Collision(void)
 					move.y = cosf(fRadian) * 50.0f;
 					if (m_pCouple[nCnt]->DamageProc(move, PlayerPos))
 					{//
+					 //
+						//C3DParticle::Create(C3DParticle::PARTICLE_ID_EXPLOSION, *EnemyPos, true);
+
 						CManager::GetSound().PlaySound(CSound::SOUND_LABEL_SE_ENEMYDAMAGE);
 						CGame::AddNumKill(1);
 						CGame::AddTime(2);
