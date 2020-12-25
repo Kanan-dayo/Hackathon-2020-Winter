@@ -19,7 +19,8 @@
 //-------------------------------------------------------------------------------------------------------------
 #define ROTATIONSPEED	(0.02f)	// 回転速度
 #define MOVESPEED		(15.0f)	// 次ページの遷移スピード
-/* 位置情報 */
+#define SCALTIME		(500)	// 拡大率の目標拡大率にかかる時間
+
 
 
 //-------------------------------------------------------------------------------------------------------------
@@ -54,16 +55,19 @@ void CStory::Init(void)
 	// ストーリー3
 	seting.nTextureID = CTexture::NAME_RESULT;
 	m_apPerfomUi[TYPE::TYPE_STORY_3].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_apPerfomUi[TYPE::TYPE_STORY_3].bMove = false;
 
 
 	// ストーリー2
 	seting.nTextureID = CTexture::NAME_RANKING;
 	m_apPerfomUi[TYPE::TYPE_STORY_2].pC2dui = C2DUi::Create(seting,CScene::PRIORITY_BUI);
+	m_apPerfomUi[TYPE::TYPE_STORY_2].bMove = false;
 
 
 	// ストーリー1
 	seting.nTextureID = CTexture::NAME_TITLE_BG;
 	m_apPerfomUi[TYPE::TYPE_STORY_1].pC2dui = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_apPerfomUi[TYPE::TYPE_STORY_1].bMove = false;
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -88,11 +92,19 @@ void CStory::Uninit(void)
 void CStory::Update(void)
 {
 	// サイズ変更の更新処理
-	Update_UiMove(m_nPushButton);
+	for (int nCntUi = 0; nCntUi < TYPE::TYPE_MAX; nCntUi++)
+	{
+		Update_UiMove(nCntUi);
+	}
 	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
 	{
 		// 押した回数アップ
 		m_nPushButton++;
+		if (m_nPushButton >= 0 && m_nPushButton < TYPE::TYPE_MAX)
+		{
+			m_apPerfomUi[m_nPushButton].bMove = true;
+		}
+
 		if (m_nPushButton >= TYPE::TYPE_MAX)
 		{
 			if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
@@ -116,7 +128,8 @@ void CStory::Draw(void)
 void CStory::Update_UiMove(int const & nUi)
 {
 	if (nUi < 0 || nUi >= TYPE::TYPE_MAX) return;
-	else if (!m_apPerfomUi[nUi].pC2dui) return;
+	else if (!m_apPerfomUi[nUi].pC2dui ||
+		!m_apPerfomUi[nUi].bMove) return;
 	C2DUi * p2Dui = m_apPerfomUi[nUi].pC2dui;
 	// 頂点座標の回転処理
 	float fRotation = p2Dui->GetImage().pImage->GetRotation();
@@ -127,6 +140,10 @@ void CStory::Update_UiMove(int const & nUi)
 	D3DXVECTOR3 * pos = p2Dui->GetImage().pImage->GetPosition();
 	pos->x += MOVESPEED;
 	pos->y -= MOVESPEED;
+
+	// 拡大率の変化処理
+
+
 
 	// 頂点座標のフラグ設定
 	p2Dui->GetImage().pImage->SetPosflag();
@@ -144,12 +161,13 @@ void CStory::Update_UiMove(int const & nUi)
 //-------------------------------------------------------------------------------------------------------------
 void CStory::Update_SizeChange(PERFORM2DUI * pPerfomUi)
 {
+	/*
 	if (!pPerfomUi->pScal) return;
 	// 変数宣言
 	SCALING * pScal = pPerfomUi->pScal;
 	// UIの取得
 	D3DXVECTOR2 * pSize;	// サイズ情報
-	// サイズ情報の取得
+							// サイズ情報の取得
 	pSize = pPerfomUi->pC2dui->GetImage().pImage->GetSize();
 	// 切り替えOFF|切り替わるON/OFF
 	if (pScal->nCntTimeChange == pScal->nTimeChange)
@@ -185,6 +203,7 @@ void CStory::Update_SizeChange(PERFORM2DUI * pPerfomUi)
 	*pSize = pScal->OriginSize * pScal->fScal;
 	// 頂点カラーの設定
 	pPerfomUi->pC2dui->GetImage().pImage->SetPosflag();
+	*/
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -198,4 +217,14 @@ void CStory::Init_PerfomUi(int const & nMaxUi, PERFORM2DUI * pPerfomUi)
 		pPerfomUi->pScal = NULL;
 		pPerfomUi->pC2dui = NULL;
 	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// 拡大率の設定
+//-------------------------------------------------------------------------------------------------------------
+void CStory::SCALING::Set(D3DXVECTOR2 const & SouceSize, float const & fSouceScalChange)
+{
+	OriginSize = SouceSize;
+	fScalChange = fSouceScalChange;
+	fScalDiff = (fScalChange - 1.0f) / SCALTIME;
 }
