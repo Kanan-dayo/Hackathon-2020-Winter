@@ -178,9 +178,13 @@ void CGame::Draw(void)
 void CGame::CreateGameUI(void)
 {
 	N2Dui_seting seting;
+	N2Dui_seting set;
 	seting.bDisp = true;
 	seting.col = ML_D3DXCOR_SET;
 	seting.fRotation = ML_FLOAT_UNSET;
+	set.bDisp = true;
+	set.col = ML_D3DXCOR_SET;
+	set.fRotation = ML_FLOAT_UNSET;
 
 	// ペア数
 	seting.nTextureID = CTexture::NAME_PAIR;
@@ -205,6 +209,24 @@ void CGame::CreateGameUI(void)
 	seting.pos = m_posUI[GAMEUI_TIMER];
 	seting.size = m_sizeUI[GAMEUI_TIMER];
 	m_pGameUI[GAMEUI_TIMER] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+
+	// レディ
+	set.nTextureID = CTexture::NAME_READY;
+	set.pos = m_posUI[GAMEUI_READY];
+	set.size = m_sizeUI[GAMEUI_READY];
+	m_pGameUI[GAMEUI_READY] = C2DUi::Create(set, CScene::PRIORITY_BUI);
+
+	// ゴー
+	set.nTextureID = CTexture::NAME_GO;
+	set.pos = m_posUI[GAMEUI_GO];
+	set.size = m_sizeUI[GAMEUI_GO];
+	m_pGameUI[GAMEUI_GO] = C2DUi::Create(set, CScene::PRIORITY_BUI);
+
+	// フィニッシュ
+	set.nTextureID = CTexture::NAME_FINISH;
+	set.pos = m_posUI[GAMEUI_FINISH];
+	set.size = m_sizeUI[GAMEUI_FINISH];
+	m_pGameUI[GAMEUI_FINISH] = C2DUi::Create(set, CScene::PRIORITY_BUI);
 }
 
 //-------------------------------------------------------------------------------------------------------------
