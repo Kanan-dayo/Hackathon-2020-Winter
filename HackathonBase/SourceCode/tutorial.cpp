@@ -13,6 +13,8 @@
 #include "fade.h"
 #include "keyboard.h"
 #include "Scene2D.h"
+#include "sound.h"
+#include "XGamepad.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // ƒ}ƒNƒ’è‹`
@@ -91,11 +93,11 @@ void CTutorial::Update(void)
 	{
 		Update_SizeChange(&m_apPerfomUi[nCntUi]);
 	}
-	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN) || CManager::GetXGamepad().GetTrigger(CXGamepad::JOYPADKEY_A))
 	{
 		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 		{
-
+			CManager::GetSound().PlaySoundA(CSound::SOUND_LABEL_SE_DECIDE);
 			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_GAME);
 		}
 	}

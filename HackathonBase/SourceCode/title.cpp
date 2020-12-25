@@ -13,6 +13,8 @@
 #include "fade.h"
 #include "keyboard.h"
 #include "Scene2D.h"
+#include "sound.h"
+#include "XGamepad.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
@@ -107,10 +109,11 @@ void CTitle::Update(void)
 		Update_SizeChange(&m_apPerfomUi[nCntUi]);
 	}
 
-	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN) || CManager::GetXGamepad().GetTrigger(CXGamepad::JOYPADKEY_START))
 	{
 		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 		{
+			CManager::GetSound().PlaySoundA(CSound::SOUND_LABEL_SE_DECIDE);
 			// タイトル名をフェードする
 			m_apPerfomUi[TYPE::TYPE_NAME].pC2dui->SetFadeAbility(N2Dui_fade(true, false, 5, -1));
 			// キーボタンをフェードする

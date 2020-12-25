@@ -56,6 +56,7 @@ public:
 	void Uninit(void);				// I—¹
 	void Update(void);				// XV
 	void Draw(void);				// •`‰æ
+	MODE GetGameMode(void) { return m_mode; }
 	C2DUi *GetGameUI(UINT nIndex) { return m_pGameUI[nIndex]; }
 	CPlayer *GetPlayer(void) { return m_pPlayer; }
 	CEnemyMana * GetEnemyMana(void) { return m_pEnemyMana; }

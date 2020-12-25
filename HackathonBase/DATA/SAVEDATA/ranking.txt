@@ -1,0 +1,5 @@
+SCRIPT
+
+score = 250 200 190 180 170
+
+END_SCRIPT

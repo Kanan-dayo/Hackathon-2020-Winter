@@ -64,7 +64,7 @@ public:
 	void                 InitImage(D3DXVECTOR3 &pos, D3DXVECTOR2 &size);		// 画像の初期化
 
 	void                 SetState(CONST STATE state);							// 状態の設定
-
+	STATE             & GetState(void) { return m_state; }
 	inline CScene2D*     GetImage(UINT nIndex) { return m_pImage[nIndex]; }		// 画像の取得
 
 protected:
@@ -78,7 +78,7 @@ protected:
 	static CONST D3DXCOLOR   m_aInitUiCol[UI_MAX];								// UIの初期化カラー
 	static CONST D3DXVECTOR2 m_aInitUiSize[UI_MAX];								// UIの初期化大きさ
 
-	MyVector<CScene2D*>  m_pImage;												// 画像ポインタ
+	vector<CScene2D*>    m_pImage;												// 画像ポインタ
 	VEC3                 m_move;												// 移動量
 	float                m_fRotDest;											// 回転の到達値
 	float                m_fSpeed;												// 速度
