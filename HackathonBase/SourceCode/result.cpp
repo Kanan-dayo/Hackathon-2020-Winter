@@ -10,6 +10,10 @@
 #include "result.h"
 #include "texture.h"
 #include "2DUI.h"
+#include "keyboard.h"
+#include "renderer.h"
+#include "fade.h"
+#include "ranking.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // ƒ}ƒNƒ’è‹`
@@ -151,6 +155,14 @@ void CResult::Uninit(void)
 //-------------------------------------------------------------------------------------------------------------
 void CResult::Update(void)
 {
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	{
+		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
+		{
+			CRanking::SetPlayerScore(m_nNumPair);
+			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_RANKING);
+		}
+	}
 }
 
 //-------------------------------------------------------------------------------------------------------------

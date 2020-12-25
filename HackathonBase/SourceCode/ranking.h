@@ -40,10 +40,12 @@ public:
 	CRanking() {};					// コンストラクタ
 	~CRanking() {};					// デストラクタ
 
-	static CRanking *Create(void);	// 生成
+	static CRanking *Create(void);		// 生成
 	static HRESULT LoadUIInfo(void);	// UIの情報のロード
+	static HRESULT LoadRank(void);		// ランキングのロード
+	static HRESULT SaveRanking(void);		// ランキングのセーブ
 
-	static void SetPlayerScore(int nScore) { m_nPlayerScore = nScore; }	// プレイヤースコアの設定
+	static void SetPlayerScore(int nScore) { m_nPlayerScore = nScore; m_bSort = true; }	// プレイヤースコアの設定
 
 	void Init(void);				// 初期化
 	void Uninit(void);				// 終了
@@ -51,12 +53,14 @@ public:
 	void Draw(void);				// 描画
 
 private:
+	void SortScore(void);
 	static D3DXVECTOR3 m_posUI[RANK_MAX][RANKING_MAX];		// UIの座標
 	static D3DXVECTOR2 m_sizeUI[RANK_MAX][RANKING_MAX];		// UIのサイズ
 	static int		   m_nNumPair[RANK_MAX];				// ペア数
 
 	static int m_nPlayerScore;								// プレイヤーのスコア
 	static int m_nPlayerRank;								// プレイヤーの順位
+	static bool m_bSort;									// ソートするか
 
 	C2DUi *m_p2DUI[RANK_MAX][RANKING_MAX];					// ２DUIポインタ
 	C2DUi *m_pUIRaking;										// ランキングUI
