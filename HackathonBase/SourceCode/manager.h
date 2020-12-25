@@ -56,6 +56,7 @@ public:
 	{
 		MODE_NONE = 0,		// 無し
 		MODE_TITLE,			// タイトル
+		MODE_STORY,			// ストーリー
 		MODE_TUTORIAL,		// チュートリアル
 		MODE_GAME,			// ゲーム
 		MODE_RESULT,		// リザルト

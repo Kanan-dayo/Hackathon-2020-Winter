@@ -25,6 +25,7 @@
 #include "game.h"
 #include "ranking.h"
 #include "tutorial.h"
+#include "story.h"
 #include "3Dparticle.h"
 #include "XGamepad.h"
 
@@ -208,6 +209,9 @@ void CManager::SetMode(MODE mode)
 	{
 	case MODE_TITLE:
 		m_pModeClass = CTitle::Create();
+		break;
+	case MODE_STORY:
+		m_pModeClass = CStory::Create();
 		break;
 	case MODE_TUTORIAL:
 		m_pModeClass = CTutorial::Create();
