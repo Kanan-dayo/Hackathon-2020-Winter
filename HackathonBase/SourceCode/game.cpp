@@ -15,6 +15,7 @@
 #include "renderer.h"
 #include "fade.h"
 #include "enemyMana.h"
+#include "NumericString.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
@@ -25,10 +26,13 @@
 //-------------------------------------------------------------------------------------------------------------
 // 静的メンバ変数の初期化
 //-------------------------------------------------------------------------------------------------------------
-CONST D3DXVECTOR3 CGame::m_InitPosPlayer = D3DXVECTOR3(640.0f, 360.0f, 0.0f);
-CONST D3DXVECTOR2 CGame::m_InitSizePlayer = D3DXVECTOR2(60.0f, 60.0f);
-D3DXVECTOR3 CGame::m_posUI[CGame::GAMEUI_MAX] = {};
-D3DXVECTOR2 CGame::m_sizeUI[CGame::GAMEUI_MAX] = {};
+CONST D3DXVECTOR3	CGame::m_InitPosPlayer				= D3DXVECTOR3(640.0f, 360.0f, 0.0f);
+CONST D3DXVECTOR2	CGame::m_InitSizePlayer				= D3DXVECTOR2(60.0f, 60.0f);
+D3DXVECTOR3			CGame::m_posUI[CGame::GAMEUI_MAX]	= {};
+D3DXVECTOR2			CGame::m_sizeUI[CGame::GAMEUI_MAX]	= {};
+C2DUi *				CGame::m_pGameUI[CGame::GAMEUI_MAX] = {};
+int					CGame::m_nNumKill					= 0;
+int					CGame::m_nCntTime					= TIME_DEFAULT;
 
 //-------------------------------------------------------------------------------------------------------------
 // 生成
@@ -116,6 +120,10 @@ HRESULT CGame::LoadUIInfo(void)
 //-------------------------------------------------------------------------------------------------------------
 void CGame::Init(void)
 {
+	m_nNumKill = 0;
+	m_nCntFrame = 0;
+	m_nCntTime = TIME_DEFAULT;
+
 	// UI情報のロード
 	LoadUIInfo();
 	// ゲームUIの生成
@@ -147,6 +155,8 @@ void CGame::Uninit(void)
 //-------------------------------------------------------------------------------------------------------------
 void CGame::Update(void)
 {
+	// タイマーの更新
+	UpdateTimer();
 	// モードの遷移
 	ModeTrans();
 	// マネージャーの更新
@@ -181,15 +191,17 @@ void CGame::CreateGameUI(void)
 	// スコア
 	seting.mask.unMask = N2Dui_mask::E_M_NUMBER;
 	seting.nTextureID = CTexture::NAME_NUMBER;
-	seting.nValue = 0;
+	seting.nValue = 100;
 	seting.pos = m_posUI[GAMEUI_SCORE];
 	seting.size = m_sizeUI[GAMEUI_SCORE];
 	m_pGameUI[GAMEUI_SCORE] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
+	m_pGameUI[GAMEUI_SCORE]->GetImage().pNumber->SetValue(0);
+	m_pGameUI[GAMEUI_SCORE]->GetImage().pNumber->UpdateNumber();
 
 	// タイマー
 	seting.mask.unMask = N2Dui_mask::E_M_NUMBER;
 	seting.nTextureID = CTexture::NAME_NUMBER;
-	seting.nValue = TIME_DEFAULT;
+	seting.nValue = m_nCntTime;
 	seting.pos = m_posUI[GAMEUI_TIMER];
 	seting.size = m_sizeUI[GAMEUI_TIMER];
 	m_pGameUI[GAMEUI_TIMER] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
@@ -200,13 +212,31 @@ void CGame::CreateGameUI(void)
 //-------------------------------------------------------------------------------------------------------------
 void CGame::ModeTrans(void)
 {
+	if (m_nCntTime <= 0)
+	{
+		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
+		{
+			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_RESULT);
+		}
+	}
+
+#ifdef _DEBUG
 	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
 	{
 		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 		{
-			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_TITLE);
+			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_RESULT);
 		}
 	}
+	if (CManager::GetKeyboard().GetTrigger(DIK_1))
+	{
+		AddTime(1);
+	}
+	if (CManager::GetKeyboard().GetTrigger(DIK_2))
+	{
+		AddTime(-1);
+	}
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------------------
@@ -219,4 +249,70 @@ void CGame::SetMode(MODE mode)
 		m_mode = mode;
 		m_nCntMode = ML_INT_UNSET;
 	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// タイマーの更新
+//-------------------------------------------------------------------------------------------------------------
+void CGame::UpdateTimer(void)
+{
+	m_nCntFrame++;
+
+	// カラー更新
+	if (m_nCntTime <= 30 && m_nCntTime > 15)
+	{
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->SetCol(D3DXCOLOR(1.0f, 1.0f, 0.0f, 1.0f));
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->UpdateCol();
+	}
+	else if (m_nCntTime <= 15)
+	{
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->SetCol(D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f));
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->UpdateCol();
+	}
+	else
+	{
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->SetCol(D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f));
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->UpdateCol();
+	}
+
+	if (m_nCntFrame <= 60)
+	{
+		return;
+	}
+	
+	// 1秒経過
+	m_nCntFrame = 0;
+	if (m_nCntTime > 0)
+	{
+		m_nCntTime--;
+		// タイマーの数字を更新
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->SetValue(m_nCntTime);
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->UpdateNumber();
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// タイムの加算
+//-------------------------------------------------------------------------------------------------------------
+void CGame::AddTime(int nValue)
+{
+	m_nCntTime += nValue;
+
+	if (m_nCntTime >= 0)
+	{
+		// タイマーの数字を更新
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->SetValue(m_nCntTime);
+		m_pGameUI[GAMEUI_TIMER]->GetImage().pNumber->UpdateNumber();
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------
+// 撃破数の加算
+//-------------------------------------------------------------------------------------------------------------
+void CGame::AddNumKill(int nValue)
+{
+	m_nNumKill += nValue;
+
+	m_pGameUI[GAMEUI_SCORE]->GetImage().pNumber->SetValue(m_nNumKill);
+	m_pGameUI[GAMEUI_SCORE]->GetImage().pNumber->UpdateNumber();
 }

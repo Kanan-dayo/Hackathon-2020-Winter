@@ -35,6 +35,9 @@ public:
 		GAMEUI_TIMER,	// タイマーUI
 		GAMEUI_SCORE,	// スコアUI
 		GAMEUI_PAIR,	// 〇ペアUI
+		GAMEUI_READY,
+		GAMEUI_GO,
+		GAMEUI_FINISH,
 		GAMEUI_MAX
 	} GAMEUI;
 
@@ -43,6 +46,8 @@ public:
 
 	static CGame *Create(void);	// 生成
 	static HRESULT LoadUIInfo(void);	// UI情報のロード
+	static void AddNumKill(int nValue);	// 撃破数を加算
+	static void AddTime(int nValue);	// タイムを加算
 	void Init(void);				// 初期化
 	void Uninit(void);				// 終了
 	void Update(void);				// 更新
@@ -54,16 +59,20 @@ private:
 	void CreateGameUI(void);		// ゲームUIの生成
 	void ModeTrans(void);			// モード遷移
 	void SetMode(MODE mode);		// モードの設定
-	
+	void UpdateTimer(void);			// タイマーの更新
+
 	static CONST D3DXVECTOR3 m_InitPosPlayer;
 	static CONST D3DXVECTOR2 m_InitSizePlayer;
 	static D3DXVECTOR3 m_posUI[GAMEUI_MAX];		// UI座標
 	static D3DXVECTOR2 m_sizeUI[GAMEUI_MAX];	// UIサイズ
-	CEnemyMana * m_pEnemyMana;		// 敵マネージャーのポインタ
-	C2DUi*	 m_pGameUI[GAMEUI_MAX];	// ゲームUIポインタ
-	CPlayer* m_pPlayer;				// プレイヤーのポインタ[
-	MODE     m_mode;				// モード
-	UINT     m_nCntMode;			// モードカウント
+	static int m_nNumKill;						// 倒した敵数
+	static int m_nCntTime;						// 残りタイム
+	static C2DUi* m_pGameUI[GAMEUI_MAX];		// ゲームUIポインタ
+	CEnemyMana * m_pEnemyMana;					// 敵マネージャーのポインタ
+	CPlayer* m_pPlayer;							// プレイヤーのポインタ[
+	MODE     m_mode;							// モード
+	UINT     m_nCntMode;						// モードカウント
+	int		 m_nCntFrame;						// フレームカウント
 };
 
 #endif

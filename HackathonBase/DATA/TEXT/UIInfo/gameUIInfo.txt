@@ -2,17 +2,17 @@ SCRIPT
 
 // タイマー
 Index = 0
-pos = 640 120
-size = 400 200
+pos = 610 60
+size = 60 90
 
 // スコア
 Index = 1
-pos = 400 360
-size = 800 200
+pos = 100 60
+size = 40 60
 
 // ペア数
 Index = 2
-pos = 1140 360
-size = 200 200
+pos = 215 75
+size = 100 50
 
 END_SCRIPT
