@@ -26,6 +26,7 @@ public:
 		NAME_NUMBER,					// 数字
 		NAME_PLAYER,					// プレイヤー
 		NAME_PleasePressButton000,		// ボタンを押してください
+		NAME_PAIR,						// 撃破ペア数
 
 		NAME_RESULT,					// リザルト
 		NAME_RESULT_TEXT,				// リザルトのテキスト

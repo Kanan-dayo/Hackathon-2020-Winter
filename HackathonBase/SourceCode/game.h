@@ -42,6 +42,7 @@ public:
 	~CGame() {};					// デストラクタ
 
 	static CGame *Create(void);	// 生成
+	static HRESULT LoadUIInfo(void);	// UI情報のロード
 	void Init(void);				// 初期化
 	void Uninit(void);				// 終了
 	void Update(void);				// 更新
@@ -53,9 +54,11 @@ private:
 	void CreateGameUI(void);		// ゲームUIの生成
 	void ModeTrans(void);			// モード遷移
 	void SetMode(MODE mode);		// モードの設定
-
+	
 	static CONST D3DXVECTOR3 m_InitPosPlayer;
 	static CONST D3DXVECTOR2 m_InitSizePlayer;
+	static D3DXVECTOR3 m_posUI[GAMEUI_MAX];		// UI座標
+	static D3DXVECTOR2 m_sizeUI[GAMEUI_MAX];	// UIサイズ
 	CEnemyMana * m_pEnemyMana;		// 敵マネージャーのポインタ
 	C2DUi*	 m_pGameUI[GAMEUI_MAX];	// ゲームUIポインタ
 	CPlayer* m_pPlayer;				// プレイヤーのポインタ[
