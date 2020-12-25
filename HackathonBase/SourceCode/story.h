@@ -22,9 +22,10 @@ public:
 	/* 列挙型 */
 	typedef enum
 	{
-		TYPE_STORY_1= 0,
+		TYPE_STORYBG = 0,
+		TYPE_STORY_1,
 		TYPE_STORY_2,
-		TYPE_STORY_3,
+		TYPE_STORY_SANTA,
 		TYPE_MAX
 	} TYPE;
 
@@ -37,9 +38,10 @@ public:
 		SCALING()
 		{
 			OriginSize = D3DXVECTOR2(0.0f, 0.0f);
+			fScal = 1.0f;
 			fScalChange = 0.0f;
 			fScalDiff = 0.0f;
-			bChange = false;
+			nCntTimeChange = 0;
 		}
 		// 設定
 		void Set(
@@ -47,9 +49,10 @@ public:
 			float const & fSouceScalChange
 		);
 		D3DXVECTOR2 OriginSize;			// 元のサイズ
+		int nCntTimeChange;				// 切り替わる時間カウント
+		float fScal;					// 現在の拡大率
 		float fScalChange;				// 目標拡大率
 		float fScalDiff;				// 拡大率上昇率
-		bool bChange;					// 切り替わり中
 	} SCALING, *P_SCALING;
 
 	typedef struct PERFORM2DUI
@@ -85,7 +88,7 @@ private:
 	/* 変数 */
 	PERFORM2DUI m_apPerfomUi[TYPE::TYPE_MAX];	// ２DUIポインタ
 	int			m_nPushButton;					// 押したボタン回数
-
+	int			m_nCntFram;						// フレームカウント
 };
 
 #endif
