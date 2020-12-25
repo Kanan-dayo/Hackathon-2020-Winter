@@ -10,13 +10,14 @@
 //-------------------------------------------------------------------------------------------------------------
 // インクルードファイル
 //-------------------------------------------------------------------------------------------------------------
-#include "renderer.h"
-#include "manager.h"
+#include "Mylibrary.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
 //-------------------------------------------------------------------------------------------------------------
-#define NUM_SCENE2D			(100)						// Scene2Dの個数
+#define COUPLE_MAX		(9)
+#define NEWLYWED_MAX	(2)
+#define STUDENT_MAX		(30)
 
 //-------------------------------------------------------------------------------------------------------------
 // クラス定義
@@ -24,16 +25,17 @@
 class CEnemyMana
 {
 public:
-	CEnemyMana();
-	~CEnemyMana();
+	CEnemyMana();							// コンストラクタ
+	~CEnemyMana();							// デストラクタ
 
-	static CEnemyMana * Create(void);
-	void Init(void);
-	void Uninit(void);
-	void Update(void);
-	void Draw(void);
+	static CEnemyMana * Create(void);		// 生成
+	void Init(void);						// 初期化
+	void Uninit(void);						// 終了
+	void Update(void);						// 更新
+	void Draw(void);						// 描画
 
-protected:
+private:
+
 };
 
 #endif
