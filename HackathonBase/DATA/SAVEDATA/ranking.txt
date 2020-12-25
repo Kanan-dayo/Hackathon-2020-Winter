@@ -1,5 +1,5 @@
 SCRIPT
 
-score = 100 90 80 70 60
+score = 250 200 190 180 170
 
 END_SCRIPT

@@ -131,13 +131,14 @@ void CGame::Init(void)
 
 	// UI情報のロード
 	LoadUIInfo();
-	// ゲームUIの生成
-	CreateGameUI();
 
 	// 敵マネージャーの生成
 	m_pEnemyMana = CEnemyMana::Create();
 	m_mode = MODE_BEGIN;
 	m_nCntMode = ML_INT_UNSET;
+
+	// ゲームUIの生成
+	CreateGameUI();
 
 	m_pPlayer = CPlayer::Create(m_InitPosPlayer, m_InitSizePlayer);
 }
