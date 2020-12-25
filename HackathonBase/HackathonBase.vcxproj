@@ -188,6 +188,7 @@
     <ClCompile Include="SourceCode\Scene.cpp" />
     <ClCompile Include="SourceCode\Scene2D.cpp" />
     <ClCompile Include="SourceCode\sound.cpp" />
+    <ClCompile Include="SourceCode\story.cpp" />
     <ClCompile Include="SourceCode\texture.cpp" />
     <ClCompile Include="SourceCode\title.cpp" />
     <ClCompile Include="SourceCode\tutorial.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="SourceCode\Scene.h" />
     <ClInclude Include="SourceCode\Scene2D.h" />
     <ClInclude Include="SourceCode\sound.h" />
+    <ClInclude Include="SourceCode\story.h" />
     <ClInclude Include="SourceCode\texture.h" />
     <ClInclude Include="SourceCode\title.h" />
     <ClInclude Include="SourceCode\tutorial.h" />
