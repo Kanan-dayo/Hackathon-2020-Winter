@@ -209,21 +209,27 @@ void CManager::SetMode(MODE mode)
 	{
 	case MODE_TITLE:
 		m_pModeClass = CTitle::Create();
+		m_Sound.PlaySoundA(CSound::SOUND_LABEL_BGM_TITLE);
 		break;
 	case MODE_STORY:
 		m_pModeClass = CStory::Create();
+		m_Sound.PlaySoundA(CSound::SOUND_LABEL_BGM_STORY);
 		break;
 	case MODE_TUTORIAL:
 		m_pModeClass = CTutorial::Create();
+		m_Sound.PlaySoundA(CSound::SOUND_LABEL_BGM_TUTORIAL);
 		break;
 	case MODE_GAME:
 		m_pModeClass = CGame::Create();
+		m_Sound.PlaySoundA(CSound::SOUND_LABEL_BGM_GAME);
 		break;
 	case MODE_RESULT:
 		m_pModeClass = CResult::Create();
+		m_Sound.PlaySoundA(CSound::SOUND_LABEL_BGM_RESULT);
 		break;
 	case MODE_RANKING:
 		m_pModeClass = CRanking::Create();
+		m_Sound.PlaySoundA(CSound::SOUND_LABEL_BGM_TITLE);
 		break;
 	}
 }

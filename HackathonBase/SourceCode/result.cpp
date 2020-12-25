@@ -14,6 +14,8 @@
 #include "renderer.h"
 #include "fade.h"
 #include "ranking.h"
+#include "XGamepad.h"
+#include "sound.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // ƒ}ƒNƒ’è‹`
@@ -139,6 +141,7 @@ void CResult::Init(void)
 	seting.size = m_sizeUI[RESULT_NUMPAIR];
 	m_p2DUI[RESULT_NUMPAIR] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 
+	seting.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
 	seting.mask.unMask = N2Dui_mask::E_M_FLASHING | N2Dui_mask::E_M_NUMBER;
 	seting.nTextureID = CTexture::NAME_NUMBER;
 	seting.nValue = m_nNumPair;
@@ -160,10 +163,11 @@ void CResult::Uninit(void)
 //-------------------------------------------------------------------------------------------------------------
 void CResult::Update(void)
 {
-	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN) || CManager::GetXGamepad().GetTrigger(CXGamepad::JOYPADKEY_A))
 	{
 		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 		{
+			CManager::GetSound().PlaySoundA(CSound::SOUND_LABEL_SE_DECIDE);
 			CRanking::SetPlayerScore(m_nNumPair);
 			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_RANKING);
 		}

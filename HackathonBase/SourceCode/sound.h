@@ -20,18 +20,15 @@ public:
 		SOUND_LABEL_NONE = -1,				// 無し
 		/* ----- BGM ----- */
 		SOUND_LABEL_BGM_TITLE = 0,			// タイトル
-		SOUND_LABEL_BGM_SELECT,				// 選択
+		SOUND_LABEL_BGM_STORY,				// ストーリー
 		SOUND_LABEL_BGM_TUTORIAL,			// チュートリアル
 		SOUND_LABEL_BGM_GAME,				// ゲーム
 		SOUND_LABEL_BGM_RESULT,				// リザルト
 		/* ----- SE ----- */
-		SOUND_LABEL_SE_NEXT,				// 次へ
-		SOUND_LABEL_SE_SELECT,				// 選択
-		SOUND_LABEL_SE_DECISION,			// 決定
-		SOUND_LABEL_SE_ATTACKHIT,			// 攻撃が当たったとき
-		SOUND_LABEL_SE_DEADLYATTACKHIT,		// 必殺技が当たったとき
-		SOUND_LABEL_SE_FIRE,				// 発射
-		SOUND_LABEL_SE_CHARGE,				// チャージ
+		SOUND_LABEL_SE_DECIDE,
+		SOUND_LABEL_SE_ENEMYDAMAGE,
+		SOUND_LABEL_SE_PLAYERDAMAGE,
+		SOUND_LABEL_SE_SMASH,
 		/* ----- 最大数 ----- */
 		SOUND_LABEL_MAX,
 	} SOUND_LABEL;// サウンドラベル

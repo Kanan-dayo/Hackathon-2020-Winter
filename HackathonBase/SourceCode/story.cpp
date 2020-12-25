@@ -13,6 +13,8 @@
 #include "fade.h"
 #include "keyboard.h"
 #include "Scene2D.h"
+#include "sound.h"
+#include "XGamepad.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
@@ -132,10 +134,11 @@ void CStory::Update(void)
 	{
 		Update_UiMove(nCntUi);
 	}
-	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN) || CManager::GetXGamepad().GetTrigger(CXGamepad::JOYPADKEY_A))
 	{
 		// 押した回数アップ
 		m_nPushButton++;
+		CManager::GetSound().PlaySoundA(CSound::SOUND_LABEL_SE_DECIDE);
 		if (m_nPushButton == 0)
 		{
 			m_apPerfomUi[TYPE::TYPE_STORY_1].bMove = true;

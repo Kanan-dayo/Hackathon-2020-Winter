@@ -13,6 +13,8 @@
 #include "keyboard.h"
 #include "renderer.h"
 #include "fade.h"
+#include "XGamepad.h"
+#include "sound.h"
 
 //-------------------------------------------------------------------------------------------------------------
 // マクロ定義
@@ -194,22 +196,26 @@ void CRanking::Init(void)
 	LoadRank();
 
 	// 初期設定
-	N2Dui_seting set;
-	set.bDisp = true;
-	set.col = ML_D3DXCOR_SET;
-	set.fRotation = ML_FLOAT_UNSET;
+	N2Dui_seting setBG;
+	setBG.bDisp = true;
+	setBG.fRotation = ML_FLOAT_UNSET;
+	N2Dui_seting setRank;
+	setRank.bDisp = true;
+	setRank.fRotation = ML_FLOAT_UNSET;
 
 	// 順位
-	set.nTextureID = CTexture::NAME_RESULT_BG;
-	set.pos = POS_RANLING_BG;
-	set.size = SIZE_RANLING_BG;
-	m_pUIBG = C2DUi::Create(set, CScene::PRIORITY_BUI);
+	setBG.nTextureID = CTexture::NAME_RESULT_BG;
+	setBG.pos = POS_RANLING_BG;
+	setBG.size = SIZE_RANLING_BG;
+	setBG.col = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	m_pUIBG = C2DUi::Create(setBG, CScene::PRIORITY_BUI);
 
 	// 順位
-	set.nTextureID = CTexture::NAME_RANKING;
-	set.pos = POS_RANLING_TITLE;
-	set.size = SIZE_RANLING_TITLE;
-	m_pUIRaking = C2DUi::Create(set, CScene::PRIORITY_BUI);
+	setRank.nTextureID = CTexture::NAME_RANKING;
+	setRank.pos = POS_RANLING_TITLE;
+	setRank.size = SIZE_RANLING_TITLE;
+	setRank.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
+	m_pUIRaking = C2DUi::Create(setRank, CScene::PRIORITY_BUI);
 
 	// スコアをソート
 	SortScore();
@@ -223,18 +229,23 @@ void CRanking::Init(void)
 		seting.fRotation = ML_FLOAT_UNSET;
 
 		// 順位
+		if (nRank == RANK_4TH || nRank == RANK_5TH)
+			seting.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
 		seting.nTextureID = CTexture::NAME_RANKING_1st + nRank;
 		seting.pos = m_posUI[nRank][RANKING_RANKED];
 		seting.size = m_sizeUI[nRank][RANKING_RANKED];
 		m_p2DUI[nRank][RANKING_RANKED] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 
 		// 〇ペア
+		if (nRank == RANK_4TH || nRank == RANK_5TH)
+			seting.col = ML_D3DXCOR_SET;
 		seting.nTextureID = CTexture::NAME_RESULT_NUMPAIR;
 		seting.pos = m_posUI[nRank][RANKING_NUMPAIR];
 		seting.size = m_sizeUI[nRank][RANKING_NUMPAIR];
 		m_p2DUI[nRank][RANKING_NUMPAIR] = C2DUi::Create(seting, CScene::PRIORITY_BUI);
 
 		// ペア数
+		seting.col = D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f);
 		(m_nPlayerRank == nRank && m_bSort) ?
 			seting.mask.unMask = N2Dui_mask::E_M_FLASHING | N2Dui_mask::E_M_NUMBER :
 			seting.mask.unMask = N2Dui_mask::E_M_NUMBER;
@@ -312,10 +323,11 @@ HRESULT CRanking::SaveRanking(void)
 //-------------------------------------------------------------------------------------------------------------
 void CRanking::Update(void)
 {
-	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN))
+	if (CManager::GetKeyboard().GetTrigger(DIK_RETURN) || CManager::GetXGamepad().GetTrigger(CXGamepad::JOYPADKEY_A))
 	{
 		if (CManager::GetRenderer().GetFade()->GetFadeState() == CFade::FADE_NONE)
 		{
+			CManager::GetSound().PlaySoundA(CSound::SOUND_LABEL_SE_DECIDE);
 			CManager::GetRenderer().GetFade()->SetFade(CManager::MODE_TITLE);
 		}
 	}
