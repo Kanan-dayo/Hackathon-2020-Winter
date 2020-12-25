@@ -64,6 +64,24 @@ public:
 		NAME_TUTORIAL_BG,				// チュートリアル背景
 		NAME_TUTORIAL_TUTORIALSKIP,		// チュートリアルスキップ
 
+		NAME_EFFECT000,					// エフェクト0
+		NAME_EFFECT001,					// エフェクト1
+		NAME_EFFECT002,					// エフェクト2
+		NAME_EFFECT003,					// エフェクト3
+		NAME_EFFECT004,					// エフェクト4
+		NAME_EFFECT_GEKITUI,			// エフェクト_撃墜
+
+		NAME_GAME_BG,					// ゲーム_背景
+		NAME_GAME_HT,					// ゲーム_HT
+		NAME_GAME_PLAYER,				// ゲーム_プレイヤー
+		NAME_GAME_RJ_00,				// ゲーム_RJ00
+		NAME_GAME_RJ_01,				// ゲーム_RJ01
+		NAME_GAME_RJ_02,				// ゲーム_RJ02
+		NAME_GAME_RJ_03,				// ゲーム_RJ03
+		NAME_GAME_RJ_04,				// ゲーム_RJ04
+		NAME_GAME_RJ_05,				// ゲーム_RJ05
+		NAME_GAME_RJ_022,				// ゲーム_RJ022
+
 		NAME_MAX						// 最大数
 	};
 	enum
