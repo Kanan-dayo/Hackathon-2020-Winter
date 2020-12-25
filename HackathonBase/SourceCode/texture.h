@@ -54,6 +54,15 @@ public:
 		NAME_TITLE_NAME,				// タイトル名
 		NAME_TITLE_PRESSSTART,			// タイトルプレススタート
 
+		NAME_STORY_SANTA,				// ストーリーサンタ
+		NAME_STORY_SANTAIKARI,			// ストーリーサンタ怒り
+		NAME_STORY_SLID1,				// ストーリースライド１
+		NAME_STORY_SLID2,				// ストーリースライド２
+		NAME_STORY_TUTORIALSKIP,		// ストーリーチュートリアルスキップ
+
+		NAME_TUTORIAL_BG,				// チュートリアル背景
+		NAME_TUTORIAL_TUTORIALSKIP,		// チュートリアルスキップ
+
 		NAME_MAX						// 最大数
 	};
 	enum
