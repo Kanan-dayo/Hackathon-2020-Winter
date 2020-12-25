@@ -39,6 +39,14 @@ public:
 		NAME_RANKING_4th,				// 4位
 		NAME_RANKING_5th,				// 5位
 
+		NAME_HEART,						// ハート
+		NAME_STUDENT_0,					// 学生 男 右
+		NAME_STUDENT_1,					// 学生 女 左
+		NAME_COUPLE_0,					// 夫婦 男 右
+		NAME_COUPLE_1,					// 夫婦 女 左
+		NAME_NEWLYWED_0,				// 新婚 女 右
+		NAME_NEWLYWED_1,				// 新婚 男 左
+
 		NAME_TITLE_BG,					// タイトル背景
 		NAME_TITLE_NAME,				// タイトル名
 		NAME_TITLE_PRESSSTART,			// タイトルプレススタート
